@@ -1,0 +1,199 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3">Upload List ({{ properties.count }})</div>
+                        <div class="col-md-6" align="right">
+                            <div class="btn-group">
+                                <button id="sortButton" class="btn btn-sm btn-warning btn-add dropdown-toggle"
+                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Sort
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a id="activeItem" class="dropdown-item" href="#">Active</a>
+                                    <a id="inactiveItem" class="dropdown-item" href="#">Inactive</a>
+                                </div>
+                            </div>
+                            {% if is_superuser %}
+                            <!-- <button class="btn btn-sm btn-warning btn-add">
+                                <a href="{% url 'admin_user_add' %}" class="text-white">ADD</a>
+                            </button> -->
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Name</th>
+                                    <th>Company Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <!-- <th>Data</th> -->
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sin in properties_data %}
+                                <tr>
+                                    <td>{{ sin.id }}</td>
+                                    <td>{{ sin.name }}</td>
+                                    <td>{{ sin.company_name }}</td>
+                                    <td>{{ sin.phone }}</td>
+                                    <td>{{ sin.email }}</td>
+                                    <!-- <td>1</td> -->
+                                    <td>{{ sin.created_at }}</td>
+                                    <td>
+                                        {% for approval in properties %}
+                                        {% if approval.id == sin.property_id %}
+                                        {% if approval.is_admin == '0' %}
+                                        <a>Inactive</a>
+                                        {% elif approval.is_admin == '1' %}
+                                        <a>Active</a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td><a href="{% url 'view_property' sin.id %}"
+                                            class="btn btn-link view-pop">View</a></td>
+
+
+                                    <!-- <td>{{ sin.id }}</td>
+                                    <td>{{ sin.title }}</td>
+                                    {% if sin.purchase_type != '0' %}
+                                    <td>Sale</td>
+                                    {% else %}
+                                    <td>Rent</td>
+                                    {% endif %} -->
+                                    <!-- <td>{{ sin.Bedroom }}</td>
+                                    <td>{{ sin.bathroom }}</td>
+                                    <td>{{ sin.floor_area }}</td>
+                                    <td>{{ sin.floor_area_value }}</td>
+                                    <td>{{ sin.features }}</td>
+                                    <td>{{ sin.amenties }}</td> -->
+                                    <!-- <td>{{ sin.duration }}</td> -->
+                                    <!-- <td><img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ sin.image }}"
+                                            height="100px" width="100px" /></td> -->
+                                    <!-- <td>{{ sin.property_type }}</td> -->
+                                    <!-- <td>{{ sin.address }}</td> -->
+                                    <!-- <td><a href="{{ sin.weburl  }}" class="btn btn-link">Link</a></td> -->
+                                    <!-- <td>{{ sin.amount }}</td>
+                                    {% if sin.is_admin != '0' %}
+                                    <td><a href="{% url 'deactivate' sin.id %}" class="btn btn-primary active-btn">Active</a></td>
+                                    {% else %}
+                                      <td><a href="{% url 'activate' sin.id %}" class="btn btn-secondary in-active">Inactive</a></td>
+                                    {% endif %}
+                                    <td><a href="{% url 'view_property' sin.id %}" class="btn btn-link view-pop">View</a></td> -->
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6">
+                            <div class="pagination pt-4 justify-content-end">
+                                <span class="step-links">
+                                    {% if properties_data.has_previous %}
+                                    <a href="?page=1">&laquo; first</a>
+                                    <a href="?page={{ properties_data.previous_page_number }}">previous</a>
+                                    {% endif %}
+
+                                    <span class="current-page">{{ properties_data.number }}</span>
+
+                                    {% if properties_data.has_next %}
+                                    <a href="?page={{ properties_data.next_page_number }}">next</a>
+                                    <a href="?page={{ properties_data.paginator.num_pages }}">last &raquo;</a>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/assets/scripts/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    var csrfToken = "{{ csrf_token }}";
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sortButton = document.getElementById('sortButton');
+        const activeItem = document.getElementById('activeItem');
+        const inactiveItem = document.getElementById('inactiveItem');
+        let sortBy = 'active'; // Default sorting order
+
+        activeItem.addEventListener('click', function (event) {
+            event.preventDefault();
+            sortBy = 'active';
+            sortData();
+        });
+
+        inactiveItem.addEventListener('click', function (event) {
+            event.preventDefault();
+            sortBy = 'inactive';
+            sortData();
+        });
+
+        function sortData() {
+            const tableBody = document.querySelector('tbody');
+            const rows = tableBody.querySelectorAll('tr');
+
+            const activeRows = [];
+            const inactiveRows = [];
+
+            // Separate the rows into respective arrays based on the sorting criteria
+            rows.forEach(row => {
+                const statusCell = row.querySelector('td:nth-last-child(2)'); // Second-to-last cell (Status cell)
+                const statusText = statusCell.innerText.trim().toLowerCase();
+                if (statusText === 'inactive') {
+                    inactiveRows.push(row);
+                } else {
+                    activeRows.push(row);
+                }
+            });
+
+            // Clear the existing table content
+            tableBody.innerHTML = '';
+
+            // Append the rows based on the sorting criteria
+            if (sortBy === 'active') {
+                activeRows.forEach(row => {
+                    tableBody.appendChild(row);
+                });
+                inactiveRows.forEach(row => {
+                    tableBody.appendChild(row);
+                });
+            } else if (sortBy === 'inactive') {
+                inactiveRows.forEach(row => {
+                    tableBody.appendChild(row);
+                });
+                activeRows.forEach(row => {
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+    });
+
+</script>
+{% endblock %}

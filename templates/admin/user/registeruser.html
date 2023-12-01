@@ -1,0 +1,108 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+
+<div class="content-wrapper pb-0">
+
+    {% include 'admin/user/custom_card.html' %}
+
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3">Registerd User List ({{ users.count }})</div>
+                        <div class="col-md-6" align="right">
+                            <a href="" class="text-white btn-add">Filter</a>
+                            {% if is_superuser %}
+                            <a href="{% url 'add_user' %}" class="text-white btn-add">Create New</a>
+                            {% endif %}
+                            <!-- <a href="" class="text-white btn-add">Edit</a>
+                        
+                    <a href="" class="text-white btn-add">Delete</a>
+                      -->
+                        </div>
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Sr.no</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Last Login</th>
+                                    <th>Status</th>
+                                    {% if is_superuser %}
+                                    <th>Action</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sin in users %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ sin.first_name }}</td>
+                                    <td>{{ sin.last_name }}</td>
+                                    <td>{{ sin.username }}</td>
+                                    <td>{{ sin.email }}</td>
+                                    <td>{{ sin.last_login }}</td>
+                                    {% if sin.is_active %}
+                                    <td>Active</td>
+                                    {% else %}
+                                    <td>Inactive</td>
+                                    {% endif %}
+
+                                    {% if is_superuser %}
+                                    <td><a href="{% url 'edit_user' sin.id %}"
+                                            class="btn btn-sm btn-success edit-btn">Edit</a>
+                                        <a href="{% url 'delete_user' sin.id %}" data-id="{{sin.id}}"
+                                            class="delete-index btn btn-sm btn-success dlt-btn">Delete</a>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6">
+                            <div class="pagination pt-4 justify-content-end">
+                                <span class="step-links">
+                                    {% if properties_data.has_previous %}
+                                    <a href="?page=1">&laquo; first</a>
+                                    <a href="?page={{ properties_data.previous_page_number }}">previous</a>
+                                    {% endif %}
+    
+                                    <span class="current-page">{{ properties_data.number }}</span>
+    
+                                    {% if properties_data.has_next %}
+                                    <a href="?page={{ properties_data.next_page_number }}">next</a>
+                                    <a href="?page={{ properties_data.paginator.num_pages }}">last &raquo;</a>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<!--<script src="/static/admin/assets/scripts/index.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var csrfToken = "{{ csrf_token }}";
+        $('.myButton').css('background-color', 'green');
+    });
+</script>
+{% endblock %}

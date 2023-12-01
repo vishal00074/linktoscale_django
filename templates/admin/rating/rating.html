@@ -1,0 +1,92 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3">Ratings({{approved_count}}/{{ properties.count }})</div>
+                        <div class="col-md-6" align="right">
+                            {% if not user.is_superuser %}
+                            <button class="btn btn-sm btn-warning btn-add">
+                                <a href="{% url 'new_rating' %}" class="text-white"><i class="mdi mdi-plus-circle mr-2"></i>ADD</a>
+                            </button>
+                           {% endif %}
+                        </div>
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th >Name</th>
+                                    <th >Date Added</th>
+                                    <th >Exterior Rating</th>
+                                    <th >Interior Rating</th>
+                                    <th >Action</th>
+                                    <th >View</th>
+                                    {% if user.is_superuser %}
+                                    <!-- <th>View Rating</th> -->
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sin in ratings %}
+                                <tr>
+                                    <td>{{ sin.name }}</td>
+                                    <td>{{ sin.date_uploaded }}</td>
+                                    <td>{{ sin.exterior}}</td>
+                                    <td>{{ sin.interior}}</td>
+                                    {% if sin.is_exist == 'active' %}
+                                    <td><a href="{% url 'rating_edit' sin.property_id %}" class="btn btn-dark">Edit</a></td>
+                                   {% else %}
+                                    <td><a href="{% url 'rating_edit' sin.property_id %}" class="btn btn-dark">Add</a></td>
+                                   {% endif %}
+                                    <td><a href="{{ sin.link }}" target="_blank" class="btn btn-success">View</a></td>
+                                    {% if user.is_superuser %}
+                                    <!-- <td><a href="{% url 'view_all_rating' sin.property_id %}" class="btn btn-success">View Rating</a></td> -->
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                        <div class="pagination pt-4 justify-content-end">
+                            <span class="step-links">
+                                {% if properties_data.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ properties_data.previous_page_number }}">previous</a>
+                                {% endif %}
+
+                                <span class="current-page">{{ properties_data.number }}</span>
+
+                                {% if properties_data.has_next %}
+                                <a href="?page={{ properties_data.next_page_number }}">next</a>
+                                <a href="?page={{ properties_data.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/assets/scripts/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    var csrfToken = "{{ csrf_token }}";
+</script>
+{% endblock %}

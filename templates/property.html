@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="category-main">
+ 
+    <div class="category-box bck" style="background-image: url(/static/images/property.jpg)">
+        <a href="{% url '' %}"><i class="fas fa-arrow-left"></i><span>Property</span></a>
+    </div>
+
+    {% for sts in cat %}
+    {% if sts.active == "1" %}
+    <div class="category-box act" style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+        <a href="{% url 'residential' %}"><span>{{ sts.name }}</span></a>
+    </div>
+    {% elif sts.active == "0" %}
+    <div class="category-box" style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+        <a>Inactive<span>{{ sts.name }}</span></a>
+    </div>
+    {% elif sts.active == "2" %}
+    <div class="category-box" style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+        <a>Coming Soon<span>{{ sts.name }}</span></a>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

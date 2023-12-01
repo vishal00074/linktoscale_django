@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Document</title>
+</head>
+<body>
+
+    <label  for="">Size</label>
+    <select type="text" name="size_id" class="form-control" id="size_id" multiple  required>
+      
+        <option value="Testing1">Testing1</option>
+        <option value="Testing1">Testing2</option>
+        <option value="Testing3">Testing3</option>
+       
+    </select>
+   
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/v0.9.15/dist/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/v0.9.15/dist/css/bootstrap-multiselect.css" />
+    
+    <script>
+        $(document).ready(function() {
+            $('#size_id').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#size_id').multiselect({
+            includeSelectAllOption: true
+        });
+    });
+</script>
+    
+</body>
+</html>

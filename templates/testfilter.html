@@ -1,0 +1,2179 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<!--filter start-->
+
+<div class="filter-sidebar">
+    <div class="filter-sidebar-inner">
+        <div class="filter-top sticky-top">
+            <div class="top-logo">
+                <a href="{% url '' %}"><img src="/static/images/b-logo.png" /></a>
+                <!-- <h6 style="color: red;align-items: right;font-weight: bold;padding-right: 9px;">Beta</h6> -->
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#home">{{ properties.count }}</a>
+                </li>
+                <li class="reload" id="resetButton">
+                    <i class="fas fa-sync"></i>
+                </li>
+                <li class="nav-item">
+                    <!-- <a class="nav-link" data-bs-toggle="tab" href="#menu1">{{ properties.count }}</a> -->
+                    <a class="nav-whiteone count-blue active" data-bs-toggle="tab" href="#menu1">{{ properties.count }}</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="home" class="tab-pane active">
+                <div class="accordion" id="myFilter">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne">
+                                <div>
+                                    <div>Filters<span id="selectedFilterCount">(0)</span>
+                                    </div><span id="selectedFilterNames"></span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="selectedFilters">
+                            <div id="selectedFilterNames"></div>
+                        </div>
+
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr" action="">
+                                    <label for="created_at">Date Added</label>
+                                    <select  class="selectpicker" name="created_at" id="created_at" placeholder="Date Added">
+                                        <option value=""> Date Added </option>
+                                        <option value="1"> 24 hours </option>
+                                        <option value="3"> 3 days</option>
+                                        <option value="7"> 7 days</option>
+                                        <option value="14"> 14 days </option>
+                                        <option value="30"> 30 days </option>
+                                        <option value="180"> 180 days </option>
+                                        <option value="365"> 365 days  </option>
+                                    </select>
+                                    
+                                    <!-- {% for item in count_data %}
+                                    <option value="{{ item.value }}">{{ item.value }} ({{ item.count }})</option>
+                                    {% endfor %} -->
+                            
+                                    <label for="continent">Select Continent</label>
+                                    <select class="selectpicker" name="continent" id="continent" placeholder="Select Continent" multiple>
+                                        <option value="Asia">Asia ({{ asia }})</option>
+                                        <option value="Australia">Australia ({{ australia }})</option>
+                                        <option value="Africa">Africa ({{ africa }})</option>
+                                        <option value="Antarctica">Antarctica ({{ antractica }})</option>
+                                        <option value="Europe">Europe ({{ europe }})</option>
+                                        <option value="North America">North America ({{ north_america }})</option>
+                                        <option value="South America">South America ({{ south_america }})</option>
+                                    </select>
+                                    
+                                <div id="all_countries">
+                                    <label for="country-select">Select Country</label>
+                                    <select  name="country" id="country" placeholder="Select Country">
+                                        <option value="">Select Country</option>
+                                        <option value="Afghanistan">Afghanistan({{ Afghanistan }})</option>
+                                        <option value="Aland Islands">Aland Islands({{ Aland_Islands }})</option>
+                                        <option value="Albania">Albania({{ Albania }})</option>
+                                        <option value="Algeria">Algeria({{ Algeria }})</option>
+                                        <option value="American Samoa">American Samoa({{ American_Samoa }})</option>
+                                        <option value="Andorra">Andorra({{ Andorra }})</option>
+                                        <option value="Angola">Angola({{ Angola }})</option>
+                                        <option value="Anguilla">Anguilla({{ Anguilla }})</option>
+                                        <option value="Antarctica">Antarctica({{ Antarctica }})</option>
+                                        <option value="Antigua and Barbuda">Antigua and Barbuda({{ Antigua_and_Barbuda }})</option>
+                                        <option value="Argentina">Argentina({{ Argentina }})</option>
+                                        <option value="Armenia">Armenia({{ Armenia }})</option>
+                                        <option value="Aruba">Aruba({{ Aruba }})</option>
+                                        <option value="Australia">Australia({{ Australia }})</option>
+                                        <option value="Austria">Austria({{ Austria }})</option>
+                                        <option value="Azerbaijan">Azerbaijan({{ Azerbaijan }})</option>
+                                        <option value="Bahamas">Bahamas({{ Bahamas }})</option>
+                                        <option value="Bahrain">Bahrain({{ Bahrain }})</option>
+                                        <option value="Bangladesh">Bangladesh({{ Bangladesh }})</option>
+                                        <option value="Barbados">Barbados({{ Barbados }})</option>
+                                        <option value="Belarus">Belarus({{ Belarus }})</option>
+                                        <option value="Belgium">Belgium({{ Belgium }})</option>
+                                        <option value="Belize">Belize({{ Belize }})</option>
+                                        <option value="Benin">Benin({{ Benin }})</option>
+                                        <option value="Bermuda">Bermuda({{ Bermuda }})</option>
+                                        <option value="Bhutan">Bhutan({{ Bhutan }})</option>
+                                        <option value="Bolivia">Bolivia({{ Bolivia }})</option>
+                                        <option value="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba({{ Bonaire_Sint_Eustatius_Saba }})</option>
+                                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina({{ Bosnia_and_Herzegovina }})</option>
+                                        <option value="Botswana">Botswana({{ Botswana }})</option>
+                                        <option value="Bouvet Island">Bouvet Island({{ Bouvet_Island }})</option>
+                                        <option value="Brazil">Brazil({{ Brazil }})</option>
+                                        <option value="British Indian Ocean Territory">British Indian Ocean Territory({{ British_Indian_Ocean_Territory }})</option>
+                                        <option value="Brunei Darussalam">Brunei Darussalam({{ Brunei_Darussalam }})</option>
+                                        <option value="Bulgaria">Bulgaria({{ Bulgaria }})</option>
+                                        <option value="Burkina Faso">Burkina Faso({{ Burkina_Faso }})</option>
+                                        <option value="Burundi">Burundi({{ Burundi }})</option>
+                                        <option value="Cambodia">Cambodia({{ Cambodia }})</option>
+                                        <option value="Cameroon">Cameroon({{ Cameroon }})</option>
+                                        <option value="Canada">Canada({{ Canada }})</option>
+                                        <option value="Cape Verde">Cape Verde({{ Cape_Verde }})</option>
+                                        <option value="Cayman Islands">Cayman Islands({{ Cayman_Islands }})</option>
+                                        <option value="Central African Republic">Central African Republic({{ Central_African_Republic }})</option>
+                                        <option value="Chad">Chad({{ Chad }})</option>
+                                        <option value="Chile">Chile({{ Chile }})</option>
+                                        <option value="China">China({{ China }})</option>
+                                        <option value="Christmas Island">Christmas Island({{ Afghanistan }})</option>
+                                        <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands({{ Cocos_Islands }})</option>
+                                        <option value="Colombia">Colombia({{ Colombia }})</option>
+                                        <option value="Comoros">Comoros({{ Comoros }})</option>
+                                        <option value="Congo">Congo({{ Congo }})</option>
+                                        <option value="Congo, Democratic Republic of the Congo">Congo, Democratic Republic of the Congo({{ Republic_of_the_Congo }})</option>
+                                        <option value="Cook Islands">Cook Islands({{ Cook_Islands }})</option>
+                                        <option value="Costa Rica">Costa Rica({{ Costa_Rica }})</option>
+                                        <option value="Cote D'Ivoire">Cote D'Ivoire({{ Cote_DIvoire }})</option>
+                                        <option value="Croatia">Croatia({{ Croatia }})</option>
+                                        <option value="Cuba">Cuba({{ Cuba }})</option>
+                                        <option value="Curacao">Curacao({{ Curacao }})</option>
+                                        <option value="Cyprus">Cyprus({{ Cyprus }})</option>
+                                        <option value="Czech Republic">Czech Republic({{ Czech_Republic }})</option>
+                                        <option value="Denmark">Denmark({{ Denmark }})</option>
+                                        <option value="Djibouti">Djibouti({{ Djibouti }})</option>
+                                        <option value="Dominica">Dominica({{ Dominica }})</option>
+                                        <option value="Dominican Republic">Dominican Republic({{ Dominican_Republic }})</option>
+                                        <option value="Ecuador">Ecuador({{ Ecuador }})</option>
+                                        <option value="Egypt">Egypt({{ Egypt }})</option>
+                                        <option value="El Salvador">El Salvador({{ El_Salvador }})</option>
+                                        <option value="Equatorial Guinea">Equatorial Guinea({{ Equatorial_Guinea }})</option>
+                                        <option value="Eritrea">Eritrea({{ Eritrea }})</option>
+                                        <option value="Estonia">Estonia({{ Estonia }})</option>
+                                        <option value="Ethiopia">Ethiopia({{ Ethiopia }})</option>
+                                        <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)({{ Falkland_Islands }})</option>
+                                        <option value="Faroe Islands">Faroe Islands({{ Faroe_Islands }})</option>
+                                        <option value="Fiji">Fiji({{ Fiji }})</option>
+                                        <option value="Finland">Finland({{ Finland }})</option>
+                                        <option value="France">France({{ France }})</option>
+                                        <option value="French Guiana">French Guiana({{ French_Guiana }})</option>
+                                        <option value="French Polynesia">French Polynesia({{ French_Polynesia }})</option>
+                                        <option value="French Southern Territories">French Southern Territories({{ French_Southern_Territories }})</option>
+                                        <option value="Gabon">Gabon({{ Gabon }})</option>
+                                        <option value="Gambia">Gambia({{ Gambia }})</option>
+                                        <option value="Georgia">Georgia({{ Georgia }})</option>
+                                        <option value="Germany">Germany({{ Germany }})</option>
+                                        <option value="Ghana">Ghana({{ Ghana }})</option>
+                                        <option value="Gibraltar">Gibraltar({{ Gibraltar }})</option>
+                                        <option value="Greece">Greece({{ Greece }})</option>
+                                        <option value="Greenland">Greenland({{ Greenland }})</option>
+                                        <option value="Grenada">Grenada({{ Grenada }})</option>
+                                        <option value="Guadeloupe">Guadeloupe({{ Guadeloupe }})</option>
+                                        <option value="Guam">Guam({{ Guam }})</option>
+                                        <option value="Guatemala">Guatemala({{ Guatemala }})</option>
+                                        <option value="Guernsey">Guernsey({{ Guernsey }})</option>
+                                        <option value="Guinea">Guinea({{ Guinea }})</option>
+                                        <option value="Guinea-Bissau">Guinea-Bissau({{ Guinea_Bissau }})</option>
+                                        <option value="Guyana">Guyana({{ Guyana }})</option>
+                                        <option value="Haiti">Haiti({{ Haiti }})</option>
+                                        <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands({{ Heard_Island_and_Mcdonald_Islands }})</option>
+                                        <option value="Holy See (Vatican City State)">Holy See (Vatican City State)({{ Holy_See }})</option>
+                                        <option value="Honduras">Honduras({{ Honduras }})</option>
+                                        <option value="Hong Kong">Hong Kong({{ Hong_Kong }})</option>
+                                        <option value="Hungary">Hungary({{ Hungary }})</option>
+                                        <option value="Iceland">Iceland({{ Iceland }})</option>
+                                        <option value="India">India({{ India }})</option>
+                                        <option value="Indonesia">Indonesia({{ Indonesia }})</option>
+                                        <option value="Iran">Iran({{ Iran }})</option>
+                                        <option value="Iraq">Iraq({{ Iraq }})</option>
+                                        <option value="Ireland">Ireland({{ Ireland }})</option>
+                                        <option value="Isle of Man">Isle of Man({{ Isle_of_Man }})</option>
+                                        <option value="Israel">Israel({{ Israel }})</option>
+                                        <option value="Italy">Italy({{ Italy }})</option>
+                                        <option value="Jamaica">Jamaica({{ Jamaica }})</option>
+                                        <option value="Japan">Japan({{ Japan }})</option>
+                                        <option value="Jersey">Jersey({{ Jersey }})</option>
+                                        <option value="Jordan">Jordan({{ Jordan }})</option>
+                                        <option value="Kazakhstan">Kazakhstan({{ Kazakhstan }})</option>
+                                        <option value="Kenya">Kenya({{ Kenya }})</option>
+                                        <option value="Kiribati">Kiribati({{ Kiribati }})</option>
+                                        <option value="Korea">Korea({{ Korea }})</option>
+                                        <option value="Kosovo">Kosovo({{ Kosovo }})</option>
+                                        <option value="Kuwait">Kuwait({{ Kuwait }})</option>
+                                        <option value="Kyrgyzstan">Kyrgyzstan({{ Kyrgyzstan }})</option>
+                                        <option value="Lao People's Democratic Republic">Lao People's Democratic Republic({{ Lao_People_Democratic_Republic }})</option>
+                                        <option value="Latvia">Latvia({{ Latvia }})</option>
+                                        <option value="Lebanon">Lebanon({{ Lebanon }})</option>
+                                        <option value="Lesotho">Lesotho({{ Lesotho }})</option>
+                                        <option value="Liberia">Liberia({{ Liberia }})</option>
+                                        <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya({{ Libyan_Arab_Jamahiriya }})</option>
+                                        <option value="Liechtenstein">Liechtenstein({{ Liechtenstein }})</option>
+                                        <option value="Lithuania">Lithuania({{ Lithuania }})</option>
+                                        <option value="Luxembourg">Luxembourg({{ Luxembourg }})</option>
+                                        <option value="Macao">Macao({{ Macao }})</option>
+                                        <option value="Macedonia, the Former Yugoslav Republic of">Macedonia, the Former Yugoslav Republic of({{ Macedonia }})</option>
+                                        <option value="Madagascar">Madagascar({{ Madagascar }})</option>
+                                        <option value="Malawi">Malawi({{ Malawi }})</option>
+                                        <option value="Malaysia">Malaysia({{ Malaysia }})</option>
+                                        <option value="Maldives">Maldives({{ Maldives }})</option>
+                                        <option value="Mali">Mali({{ Mali }})</option>
+                                        <option value="Malta">Malta({{ Malta }})</option>
+                                        <option value="Marshall Islands">Marshall Islands({{ Marshall_Islands }})</option>
+                                        <option value="Martinique">Martinique({{ Martinique }})</option>
+                                        <option value="Mauritania">Mauritania({{ Mauritania }})</option>
+                                        <option value="Mauritius">Mauritius({{ Mauritius }})</option>
+                                        <option value="Mayotte">Mayotte({{ Mayotte }})</option>
+                                        <option value="Mexico">Mexico({{ Mexico }})</option>
+                                        <option value="Micronesia, Federated States of">Micronesia, Federated States of({{ Micronesia_Federated_States_of }})</option>
+                                        <option value="Moldova, Republic of">Moldova, Republic of({{ Moldova_Republic_of }})</option>
+                                        <option value="Monaco">Monaco({{ Monaco }})</option>
+                                        <option value="Mongolia">Mongolia({{ Mongolia }})</option>
+                                        <option value="Montenegro">Montenegro({{ Montenegro }})</option>
+                                        <option value="Montserrat">Montserrat({{ Montserrat }})</option>
+                                        <option value="Morocco">Morocco({{ Morocco }})</option>
+                                        <option value="Mozambique">Mozambique({{ Mozambique }})</option>
+                                        <option value="Myanmar">Myanmar({{ Myanmar }})</option>
+                                        <option value="Namibia">Namibia({{ Namibia }})</option>
+                                        <option value="Nauru">Nauru({{ Nauru }})</option>
+                                        <option value="Nepal">Nepal({{ Nepal }})</option>
+                                        <option value="Netherlands">Netherlands({{ Netherlands }})</option>
+                                        <option value="Netherlands Antilles">Netherlands Antilles({{ Netherlands_Antilles }})</option>
+                                        <option value="New Caledonia">New Caledonia({{ New_Caledonia }})</option>
+                                        <option value="New Zealand">New Zealand({{ New_Zealand }})</option>
+                                        <option value="Nicaragua">Nicaragua({{ Nicaragua }})</option>
+                                        <option value="Niger">Niger({{ Niger }})</option>
+                                        <option value="Nigeria">Nigeria({{ Nigeria }})</option>
+                                        <option value="Niue">Niue({{ Niue }})</option>
+                                        <option value="Norfolk Island">Norfolk Island({{ Norfolk_Island }})</option>
+                                        <option value="Northern Mariana Islands">Northern Mariana Islands({{ Northern_Mariana_Islands }})</option>
+                                        <option value="Norway">Norway({{ Norway }})</option>
+                                        <option value="Oman">Oman({{ Oman }})</option>
+                                        <option value="Pakistan">Pakistan({{ Pakistan }})</option>
+                                        <option value="Palau">Palau({{ Palau }})</option>
+                                        <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied({{ Palestinian }})</option>
+                                        <option value="Panama">Panama({{ Panama }})</option>
+                                        <option value="Papua New Guinea">Papua New Guinea({{ Papua_New_Guinea }})</option>
+                                        <option value="Paraguay">Paraguay({{ Paraguay }})</option>
+                                        <option value="Peru">Peru({{ Peru }})</option>
+                                        <option value="Philippines">Philippines({{ Philippines }})</option>
+                                        <option value="Pitcairn">Pitcairn({{ Pitcairn }})</option>
+                                        <option value="Poland">Poland({{ Poland }})</option>
+                                        <option value="Portugal">Portugal({{ Portugal }})</option>
+                                        <option value="Puerto Rico">Puerto Rico({{ Puerto_Rico }})</option>
+                                        <option value="Qatar">Qatar({{ Qatar }})</option>
+                                        <option value="Reunion">Reunion({{ Reunion }})</option>
+                                        <option value="Romania">Romania({{ Romania }})</option>
+                                        <option value="Russian Federation">Russian Federation({{ Russian_Federation }})</option>
+                                        <option value="Rwanda">Rwanda({{ Rwanda }})</option>
+                                        <option value="Saint Barthelemy">Saint Barthelemy({{ Saint_Barthelemy }})</option>
+                                        <option value="Saint Helena">Saint Helena({{ Saint_Helena }})</option>
+                                        <option value="Saint Kitts and Nevis">Saint Kitts and Nevis({{ Saint_Kitts_and_Nevis }})</option>
+                                        <option value="Saint Lucia">Saint Lucia({{ Saint_Lucia }})</option>
+                                        <option value="Saint Martin">Saint Martin({{ Saint_Martin }})</option>
+                                        <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon({{ Saint_Pierre_and_Miquelon }})</option>
+                                        <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines({{ Saint_Vincent_and_the_Grenadines }})</option>
+                                        <option value="Samoa">Samoa({{ Samoa }})</option>
+                                        <option value="San Marino">San Marino({{ San_Marino }})</option>
+                                        <option value="Sao Tome and Principe">Sao Tome and Principe({{ Sao_Tome_and_Principe }})</option>
+                                        <option value="Saudi Arabia">Saudi Arabia({{ Saudi_Arabia }})</option>
+                                        <option value="Senegal">Senegal({{ Senegal }})</option>
+                                        <option value="Serbia">Serbia({{ Serbia }})</option>
+                                        <option value="Serbia and Montenegro">Serbia and Montenegro({{ Serbia_and_Montenegro }})</option>
+                                        <option value="Seychelles">Seychelles({{ Seychelles }})</option>
+                                        <option value="Sierra Leone">Sierra Leone({{ Sierra_Leone }})</option>
+                                        <option value="Singapore">Singapore({{ Singapore }})</option>
+                                        <option value="Sint Maarten">Sint Maarten({{ Sint_Maarten }})</option>
+                                        <option value="Slovakia">Slovakia({{ Slovakia }})</option>
+                                        <option value="Slovenia">Slovenia({{ Slovenia }})</option>
+                                        <option value="Solomon Islands">Solomon Islands({{ Solomon_Islands }})</option>
+                                        <option value="Somalia">Somalia({{ Somalia }})</option>
+                                        <option value="South Africa">South Africa({{ South_Africa }})</option>
+                                        <option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands({{ South_Georgia_and_the_South_Sandwich_Islands }})</option>
+                                        <option value="South Sudan">South Sudan({{ South_Sudan }})</option>
+                                        <option value="Spain">Spain({{ Spain }})</option>
+                                        <option value="Sri Lanka">Sri Lanka({{ Sri_Lanka }})</option>
+                                        <option value="Sudan">Sudan({{ Sudan }})</option>
+                                        <option value="Suriname">Suriname({{ Suriname }})</option>
+                                        <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen({{ Svalbard_and_Jan_Mayen }})</option>
+                                        <option value="Swaziland">Swaziland({{ Swaziland }})</option>
+                                        <option value="Sweden">Sweden({{ Sweden }})</option>
+                                        <option value="Switzerland">Switzerland({{ Switzerland }})</option>
+                                        <option value="Syrian Arab Republic">Syrian Arab Republic({{ Syrian_Arab_Republic }})</option>
+                                        <option value="Taiwan">Taiwan({{ Taiwan }})</option>
+                                        <option value="Tajikistan">Tajikistan({{ Tajikistan }})</option>
+                                        <option value="Tanzania">Tanzania, United Republic of({{ Tanzania }})</option>
+                                        <option value="Thailand">Thailand({{ Thailand }})</option>
+                                        <option value="Timor-Leste">Timor-Leste({{ Timor_Leste }})</option>
+                                        <option value="Togo">Togo({{ Togo }})</option>
+                                        <option value="Tokelau">Tokelau({{ Tokelau }})</option>
+                                        <option value="Tonga">Tonga({{ Tonga }})</option>
+                                        <option value="Trinidad and Tobago">Trinidad and Tobago({{ Trinidad_and_Tobago }})</option>
+                                        <option value="Tunisia">Tunisia({{ Tunisia }})</option>
+                                        <option value="Turkey">Turkey({{ Turkey }})</option>
+                                        <option value="Turkmenistan">Turkmenistan({{ Turkmenistan }})</option>
+                                        <option value="Turks and Caicos Islands">Turks and Caicos Islands({{ Turks_and_Caicos_Islands }})</option>
+                                        <option value="Tuvalu">Tuvalu({{ Tuvalu }})</option>
+                                        <option value="Uganda">Uganda({{ Uganda }})</option>
+                                        <option value="Ukraine">Ukraine({{ Ukraine }})</option>
+                                        <option value="United Arab Emirates">United Arab Emirates({{ United_Arab_Emirates }})</option>
+                                        <option value="United Kingdom(UK)">United Kingdom(UK)({{ United_Kingdom }})</option>
+                                        <option value="United State America">United State America({{ United_States }})</option>
+                                        <option value="United States Minor Outlying Islands">United States Minor Outlying Islands({{ United_States_Minor_Outlying_Islands }})</option>
+                                        <option value="Uruguay">Uruguay({{ Uruguay }})</option>
+                                        <option value="Uzbekistan">Uzbekistan({{ Uzbekistan }})</option>
+                                        <option value="Vanuatu">Vanuatu({{ Vanuatu }})</option>
+                                        <option value="Venezuela">Venezuela({{ Venezuela }})</option>
+                                        <option value="Viet Nam">Viet Nam({{ Viet_Nam }})</option>
+                                        <option value="Virgin Islands, British">Virgin Islands, British({{ Virgin_Islands_British }})</option>
+                                        <option value="Virgin Islands, U.s.">Virgin Islands, U.s.({{ Virgin_Islands_Us }})</option>
+                                        <option value="Wallis and Futuna">Wallis and Futuna({{ Wallis_and_Futuna }})</option>
+                                        <option value="Western Sahara">Western Sahara({{ Western_Sahara }})</option>
+                                        <option value="Yemen">Yemen({{ Yemen }})</option>
+                                        <option value="Zambia">Zambia({{ Zambia }})</option>
+                                        <option value="Zimbabwe">Zimbabwe({{ Zimbabwe }})</option>
+                                    </select>
+                                </div>
+
+                                
+                                    <!-- City -->
+                                    <div id="all_cities">
+                                    <label for="city-select">Select City</label>
+                                    <!-- <input type="text"  id="city" placeholder="Enter city name"> -->
+                                    <select  name="city" id="city" placeholder="Select city">
+                                        <option value="">Select City</option>
+                                        {% for city in CityNames %}
+                                            <option value="{{ city.city }}">{{ city.city }} ({{ city.name_count }})</option>
+                                        {% endfor %}
+                                    </select>
+                                  </div>
+                                    <div id="suggestionsContainer"></div>
+                                   
+
+
+                                    
+                                    <label for="property_type" >Select Type</label>
+                                    <select  class="selectpicker" name="property_type" id="property_type"  multiple>
+                                      
+                                        <option value="House">House ({{ House }})</option>
+                                        <option value="Flat/Apartment"> Flat/Apartment ({{ Apartment }})</option>
+                                        
+                                        </option>
+                                    </select>
+
+
+                                    <label for="Status">Select Status</label>
+                                    <select class="selectpicker" id="status" name="status" placeholder="Select Status">
+                                        <option value="">Select Status</option>
+                                        <option value="Rent">Rent ({{ Rent }})</option>
+                                        <option value="Buy">Buy ({{ Buy }})</option>
+                                        <option value="Auction">Auction ({{ Auction }})</option>
+                                        <option value="Stay">Stay ({{ Stay }})</option>
+                                        <option value="Featured">Featured ({{ Featured }})</option>
+                                    </select>
+
+ 
+
+                                    <div class="form-group" id="getrent" style="display: none;">
+                                        <label for="rent">Select Price</label>
+                                        <select class="selectpicker" id="rent" name="rent" placeholder="Select Price" >
+                                            <option value="">Select Price</option>
+                                            <option value="0,499">Under £500 ({{ rent500 }})</option>
+                                            <option value="500,999">£500 - £1,000 ({{ rent1000 }})</option>
+                                            <option value="1000,1499">£1,000 - £1,500 ({{ rent1500 }})</option>
+                                            <option value="1500,2599">£1,500 - £2,500 ({{ rent2500 }})</option>
+                                            <option value="2500,4999">£2,500 - £5,000 ({{ rent5000 }})</option>
+                                            <option value="5000,9999">£5,000 - £10,000 ({{ rent10000 }})</option>
+                                            <option value="10000, 1000000000000">Over £10,000 ({{ rent100001 }})</option>
+                                        </select>
+                                    </div>
+
+                                    <div id="getbuy" style="display:none;">
+                                        <label for="buy" >Select Price</label>
+                                        <select class="selectpicker" id="buy" name="buy" placeholder="Select Price"> 
+                                            <option value="">Select Price</option>
+                                            <option value="0,99999">Under £100,000 ({{ buy100000 }})</option>
+                                            <option value="100000,249999"> £100,000 - £250,000  ({{ buy250000 }})</option>
+                                            <option value="250000,499999"> £250,000 - £500,000  ({{ buy500000 }})</option>
+                                            <option value="500000,999999"> £500,000 - £1,000,000  ({{ buy1000000 }})</option>
+                                            <option value="1000000,4999999"> £1,000,000 - £5,000,000  ({{ buy5000000 }})</option>
+                                            <option value="5000000,9999999"> £5,000,000 - £10,000,000  ({{ buy10000000 }})</option>
+                                            <option value="10000000,100000000000000"> Over £10,000,000  ({{ buy10000001 }})</option>
+                                        </select>
+                                    </div>
+
+
+                                    <span id="getauction" style="display:none;">
+                                        <label for="auction" >Select Price</label>
+                                        <select class="selectpicker" id="auction" name="auction" placeholder="Select Price">
+                                            <option value="">Select Price</option>
+                                            <option value="0,99999">Under £100,000 ({{ auc100000 }})</option>
+                                            <option value="100000,249999"> £100,000 - £250,000 ({{ auc250000 }})</option>
+                                            <option value="250000,499999"> £250,000 - £500,000 ({{ auc500000 }})</option>
+                                            <option value="500000,999999"> £500,000 - £1,000,000 ({{ auc1000000 }})</option>
+                                            <option value="1000000,4999999"> £1,000,000 - £5,000,000 ({{ auc5000000 }})</option>
+                                            <option value="5000000,9999999"> £5,000,000 - £10,000,000 ({{ auc10000000 }})</option>
+                                            <option value="10000001,100000000000"> Over £10,000,000 ({{ auc10000001 }})</option>
+                                        </select>
+                                    </span>
+
+                                    <span id="getstay" style="display:none;">
+                                        <label for="stay" >Select Price</label>
+                                        <select class="selectpicker" id="stay" name="stay" placeholder="Select Price">
+                                            <option value="">Select Price</option>
+                                            <option value="0,49">Under £50 ({{ stay50 }})</option>
+                                            <option value="50,99"> £50 - £100 ({{ stay100 }})</option>
+                                            <option value="100,149"> £100 - £150 ({{ stay150 }})</option>
+                                            <option value="150,249"> £150 - £250 ({{ stay250 }})</option>
+                                            <option value="250,499"> £250 - £500 ({{ stay500 }})</option>
+                                            <option value="500,999"> £500 - £1,000 ({{ stay1000 }})</option>
+                                            <option value="1000,10000000000"> Over £1,000 ({{ stay10001 }})</option>
+                                        </select>
+                                    </span>
+
+
+                                    <label for="features">Features</label>
+                                    <select  class="selectpicker" name="Features" id="features" placeholder="Select Features" multiple>
+                                        <!-- <option value="">Select</option> -->
+                                        <option value="balcony">Balcony ({{ balcony }})</option>
+                                        <option value="ensuite">En-Suite ({{ ensuite }})</option>
+                                        <option value="Garage">Garage ({{ Garage }})</option>
+                                        <option value="Garden">Garden ({{ Garden_f }})</option>
+                                        <option value="Kitchen">Kitchen ({{ Kitchen }})</option>
+                                        <option value="Living Room">Living Room ({{ Room }})</option>
+                                        <option value="Studio">Studio ({{ Studio }})</option>
+                                    </select>
+
+
+                                    <label for="amenities">Amenities</label>
+                                    <select class="selectpicker" name="amenities" id="amenities" placeholder="Select Amenities" multiple>
+                                        <option value="Air conditioning">Air conditioning ({{ aconditioning }})</option>
+                                        <option value="Carbon monoxide alarm">Carbon monoxide alarm ({{ Calarm }})</option>
+                                        <option value="Fire extinguisher">Fire extinguisher ({{ Fextinguisher }})</option>
+                                        <option value="First aid kit">First aid kit ({{ Fkit }})</option>
+                                        <option value="Gym">Gym ({{ aGym }})</option>
+                                        <option value="Heating">Heating ({{ FkHeatingit }})</option>
+                                        <option value="Laundry facilities">Laundry facilities ({{ aLaundry }})</option>
+                                        <option value="Mountain view">Mountain view ({{ Mview }})</option>
+                                        <option value="Outdoor dining area">Outdoor dining area ({{ Odining }})</option>
+                                        <option value="Outdoor furniture">Outdoor furniture ({{ Ofurniture }})</option>
+                                        <option value="Outdoor spaces">Outdoor spaces ({{ aOutdoor }})</option>
+                                        <option value="Parking facilities">Parking facilities ({{ aParking }})</option>
+                                        <option value="Playground">Playground ({{ aPlayground }})</option>
+                                        <option value="Private patio">Private patio ({{ patio }})</option>
+                                        <option value="Security cameras">Security cameras ({{ camera }})</option>
+                                        <option value="Smoke alarm">Smoke alarm ({{ Salarm }})</option>
+                                        <option value="Swimming pool">Swimming pool ({{ aSwimming }})</option>
+                                        <option value="Valley view">Valley view ({{ Vview }})</option>
+                                    </select>
+                                    
+                                    <!-- <input type="text" placeholder="Type" id="type"  name="type"> -->
+                                    <!-- <input type="text" placeholder="Website" id="weburl" name="weburl"> -->
+                                    <!-- <button type="submit"  value="submit">Submit</button> -->
+
+                                    <label for="bedrooms">Bedrooms</label>
+                                    <select  class="selectpicker" name="Bedrooms" id="bedrooms" placeholder="Select Bedrooms" multiple>
+                                        <option value="">Select</option>
+                                        <option value="1 Bedroom"> 1 Bedroom ({{ bedroom1 }}) </option>
+                                        <option value="2 Bedrooms"> 2 Bedrooms  ({{ bedroom2 }})  </option>
+                                        <option value="3 Bedrooms"> 3 Bedrooms  ({{ bedroom3 }})  </option>
+                                        <option value="4 Bedrooms"> 4 Bedrooms  ({{ bedroom4 }}) </option>
+                                        <option value="5 Bedrooms"> 5 Bedrooms  ({{ bedroom5 }}) </option>
+                                        <option value="6 Bedrooms"> 6 Bedrooms  ({{ bedroom6 }}) </option>
+                                        <option value="7 Bedrooms"> 7 Bedrooms  ({{ bedroom7 }}) </option>
+                                        <option value="8 Bedrooms"> 8 Bedrooms and more ({{ bedroom8 }}) </option>
+                                    </select>
+                                    
+                                    <label for="bathroom">Bathrooms</label>
+                                    <select  class="selectpicker" name="bathroom" id="bathroom" placeholder="Select Bathrooms" multiple>
+                                        <option value="">Select</option>
+                                        <option value="1 Bathroom"> 1 Bathroom  ({{ bathroom1 }})</option>
+                                        <option value="2 Bathrooms"> 2 Bathrooms  ({{ bathroom2 }})</option>
+                                        <option value="3 Bathrooms"> 3 Bathrooms  ({{ bathroom3 }})</option>
+                                        <option value="4 Bathrooms"> 4 Bathrooms  ({{ bathroom4 }})</option>
+                                        <option value="5 Bathrooms"> 5 Bathrooms  ({{ bathroom5 }})</option>
+                                        <option value="6 Bathrooms"> 6 Bathrooms  ({{ bathroom6 }})</option>
+                                        <option value="7 Bathrooms"> 7 Bathrooms  ({{ bathroom7 }})</option>
+                                        <option value="8 Bathrooms"> 8 Bathrooms and more ({{ bathroom8 }})</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo">
+                                <div>
+                                    <div>AESTHETICS<span id="filterCount">(0)</span>
+                                    </div><span id="selectedFiltersInfo"></span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr m-0">
+                                    <div class="range-select">
+                                        <label class="tooltip">Exterior <span class="tooltiptext">External quality of
+                                                the property <br> Where "1" is the lowest Exterior quality and "3" is the
+                                                highest Exterior quality</span></label>
+                                        <input type="range" id="exterior" name="exterior" min="1" max="3" value="1">
+                                        <output for="foo"  id="exterOutput"  onforminput="value = foo.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Interior <span class="tooltiptext">Internal quality of
+                                                the property <br> where "1" is the lowest lnterior quality and "3" is the
+                                                highest Interior quality</span></label>
+                                        <input type="range" id="interior" name="interior" min="1" max="3" value="1">
+                                        <output for="foo"  id="interiorOutput" onforminput="value = foo.valueAsNumber;"></output>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour">ARCHITECTURAL STYLE</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive">DOOMSDAY</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSix">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSix">
+                                <div>
+                                    <div>ECOFRIENDLY<span id="ecoFilterCount">(0)</span>
+                                    </div><span id="selectedEcoFiltersInfo"></span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr m-0" action="" method="post">
+                                    <div class="range-select">
+                                        <label class="tooltip">Energy Efficiency <span class="tooltiptext">Estimated
+                                                total energy consumption for the Property in a 12 month period.<br>
+                                                Where "1" is the least energy efficient and "3" the most energy
+                                                efficient </span></label>
+                                        <input type="range" id="energy"  name="energy" min="1" max="3" value="1">
+                                        <output for="energy" id="energyoutput" onforminput="value = energy.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Environmental Impact <span class="tooltiptext">Property
+                                                impact on the environment in terms of carbon dioxide (CO2) emissions.
+                                                <br>Where "1" is more impact on Environment and "3" is less impact on
+                                                Environment</span></label>
+                                        <input type="range" id="environment" name="environment" min="1" max="3" value="1">
+                                        <output for="environment"
+                                            id="environmentoutput" onforminput="value = environment.valueAsNumber;"></output>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSeven">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSeven">INTERIOR DESIGN</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEight">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEight">LOCATION</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNine">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseNine">MARKET</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTen">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTen">
+                                <div>
+                                    <div>NEARBY<span id="NearFilterCount">(0)</span>
+                                    </div><span id="selectednearFiltersInfo"></span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr m-0" action="" method="post">
+                                    <div class="range-select">
+                                        <label class="tooltip">SeaSide <span class="tooltiptext">Distance from the property to the nearest Bar.<br>
+                                                Where "1" is the farthest, and "3" is the closest </span></label>
+                                        <input type="range" id="seaside"  name="seaside" min="1" max="3" value="1">
+                                        <output for="seaside" id="seasideoutput" onforminput="value = bar.valueAsNumber;"></output>
+                                    </div>
+
+                                    <div class="range-select">
+                                        <label class="tooltip">River Side <span class="tooltiptext">Distance from the property to the nearest Bar.<br>
+                                                Where "1" is the farthest, and "3" is the closest </span></label>
+                                        <input type="range" id="river"  name="river" min="1" max="3" value="1">
+                                        <output for="river" id="riveroutput" onforminput="value = bar.valueAsNumber;"></output>
+                                    </div><div class="range-select">
+                                        <label class="tooltip">Bar <span class="tooltiptext">Distance from the property to the nearest Bar.<br>
+                                                Where "1" is the farthest, and "3" is the closest </span></label>
+                                        <input type="range" id="bar"  name="bar" min="1" max="3" value="1">
+                                        <output for="bar" id="baroutput" onforminput="value = bar.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Convinience Store <span class="tooltiptext">Distance from the property to the nearest Convinience Store.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="convinience" name="convinience" min="1" max="3" value="1">
+                                        <output for="convinience"
+                                            id="convinienceoutput" onforminput="value = convinience.valueAsNumber;"></output>
+                                    </div>
+
+                                    <div class="range-select">
+                                        <label class="tooltip">Fire Station<span class="tooltiptext">Distance from the property to the nearest Fire Station.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="fire" name="fire" min="1" max="3" value="1">
+                                        <output for="fire"
+                                            id="fireoutput" onforminput="value = environment.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Gym<span class="tooltiptext">Distance from the property to the nearest Gym.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="gym" name="gym" min="1" max="3" value="1">
+                                        <output for="gym"
+                                            id="gymoutput" onforminput="value = gym.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Hospital<span class="tooltiptext">Distance from the property to the nearest Hospital.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="hospital" name="hospital" min="1" max="3" value="1">
+                                        <output for="hospital"
+                                            id="hospitaloutput" onforminput="value = hospital.valueAsNumber;"></output>
+                                    </div> 
+                                    <div class="range-select">
+                                        <label class="tooltip">Nursery<span class="tooltiptext">Distance from the property to the nearest Nursery.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="nursery" name="nursery" min="1" max="3" value="1">
+                                        <output for="nursery"
+                                            id="nurseryoutput" onforminput="value = nursery.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Park<span class="tooltiptext">Distance from the property to the nearest Park.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="park" name="park" min="1" max="3" value="1">
+                                        <output for="park"
+                                            id="parkoutput" onforminput="value = park.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Petrol Station<span class="tooltiptext">Distance from the property to the nearest Petrol Station.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="petrol" name="petrol" min="1" max="3" value="1">
+                                        <output for="petrol"
+                                            id="petroloutput" onforminput="value = petrol.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Police Station<span class="tooltiptext">Distance from the property to the nearest Police Station.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="police" name="police" min="1" max="3" value="1">
+                                        <output for="police"
+                                            id="policeoutput" onforminput="value = police.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Restaurant<span class="tooltiptext">Distance from the property to the nearest Restaurant.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="restaurant" name="restaurant" min="1" max="3" value="1">
+                                        <output for="restaurant"
+                                            id="restaurantoutput" onforminput="value = restaurant.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">School<span class="tooltiptext">Distance from the property to the nearest School.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="school" name="school" min="1" max="3" value="1">
+                                        <output for="school"
+                                            id="schooloutput" onforminput="value = school.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Super Market<span class="tooltiptext">Distance from the property to the nearest Super Market.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="market" name="market" min="1" max="3" value="1">
+                                        <output for="market"
+                                            id="marketoutput" onforminput="value = market.valueAsNumber;"></output>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEleven">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEleven">
+                                <div>
+                                    <div>SIZE<span id="SizeFilterCount">(0)</span>
+                                    </div><span id="selectedsizeFiltersInfo"></span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr m-0"  action="" method="post">
+                                    <div class="range-select">
+                                        <label class="tooltip">Floor Area <span class="tooltiptext">Area referes to the Internal Floor Area of the property where "1" is the smallest floor area and "3" the biggest</span></label>
+                                        <input type="range" id="floor_area" name="floor_area" min="1" max="3" value="1">
+                                        <output for="floor_area"  id="floor_areaOutput"  onforminput="value = floor_area.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Site Area<span class="tooltiptext">Area referes to the Internal Site Area of the property where "1" is the smallest Site area and "3" the biggest</span></label>
+                                        <input type="range" id="site_area" name="site_area" min="1" max="3" value="1">
+                                        <output for="site_area"  id="site_areaOutput" onforminput="value = site_area.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Kitchen<span class="tooltiptext">The size of the Kitchen where "1" is the smallest size and "3" the biggest</span></label>
+                                        <input type="range" id="kitchen" name="kitchen" min="1" max="3" value="1">
+                                        <output for="kitchen"  id="kitchenOutput" onforminput="value = kitchen.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Living Room<span class="tooltiptext">The size of the Living Room where "1" is the smallest size and 3 the biggest</span></label>
+                                        <input type="range" id="living_room" name="living_room" min="1" max="3" value="1">
+                                        <output for="living_room"  id="living_roomOutput" onforminput="value = living_room.valueAsNumber;"></output>
+                                    </div>
+                                   
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwelve">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwelve">
+                                <div>
+                                    <div>TRANSPORT <span id="TransFilterCount">(0)</span>
+                                    </div><span id="selectedTransFiltersInfo"></span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr m-0" action="" method="post">
+                                    <div class="range-select">
+                                        <label class="tooltip">Airport <span class="tooltiptext">Distance from the property to the nearest Airport.<br>
+                                            Where "1" is the farthest, and "3" is the closest </span></label>
+                                        <input type="range" id="airport"  name="airport" min="1" max="3" value="1">
+                                        <output for="airport" id="airportoutput" onforminput="value = airport.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Bus Stop<span class="tooltiptext">Distance from the property to the nearest Bus Stop.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="bus_stop" name="bus_stop" min="1" max="3" value="1">
+                                        <output for="bus_stop"
+                                            id="bus_stopoutput" onforminput="value = bus_stop.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Train Station <span class="tooltiptext">Distance from the property to the nearest Train Station.<br>
+                                            Where "1" is the farthest, and "3" is the closest </span></label>
+                                        <input type="range" id="train_station"  name="train_station" min="1" max="3" value="1">
+                                        <output for="train_station" id="train_stationoutput" onforminput="value = train_station.valueAsNumber;"></output>
+                                    </div>
+                                    <div class="range-select">
+                                        <label class="tooltip">Underground Station<span class="tooltiptext">Distance from the property to the nearest Underground Station.<br>
+                                            Where "1" is the farthest, and "3" is the closest</span></label>
+                                        <input type="range" id="underground_station" name="underground_station" min="1" max="3" value="1">
+                                        <output for="underground_station"
+                                            id="underground_stationoutput" onforminput="value = underground_station.valueAsNumber;"></output>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu1" class="tab-pane fade">
+                <div class="accordion" id="myFilter">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne">Filters <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form>
+                                    <div class="input-group mb-3">
+                                        <select class="custom-select" id="select02">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo">AESTHETICS <span>(0)</span>
+                            </button>
+                            <span id="selectedFiltersInfo"></span>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour">ARCHITECTURAL STYLE</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive">DOOMSDAY</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSix">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSix">ECOFRIENDY <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSeven">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSeven">INTERIOR DESIGN</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEight">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEight">LOCATION</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNine">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseNine">MARKET</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTen">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTen">NEARBY <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEleven">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEleven">SIZE <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwelve">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwelve">TRANSPORT <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="filter-btn"><i class="fas fa-caret-left"></i> </a>
+</div>
+<!--filter end-->
+
+<div class="content resident">
+    <div class="category-main">
+        {% for sts in properties %}
+        <div class="category-box act"
+            style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+            <a href="{{ sts.weburl }}" target="_blank"><span>{{ sts.name }}</span></a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    function toggleSecondSelect() {
+        var selectedOption = $("#status").val();
+        
+        document.getElementById('getrent').style.display = 'none';
+        document.getElementById('getbuy').style.display = 'none';
+        document.getElementById('getauction').style.display = 'none';
+        document.getElementById('getstay').style.display = 'none';
+
+        document.getElementById('rent').value = '';
+        document.getElementById('buy').value = '';
+        document.getElementById('auction').value = '';
+        document.getElementById('stay').value = '';
+
+        if (selectedOption === "Rent") {
+            document.getElementById('getrent').style.display = '';  
+        } else if (selectedOption === "Buy") {
+            document.getElementById('getbuy').style.display = ''; 
+        } else if (selectedOption === "Auction"){
+            document.getElementById('getauction').style.display = '';
+        }else if (selectedOption === "Stay"){
+            document.getElementById('getstay').style.display = '';
+        }
+    }
+
+    $("#status").on("change", function() {
+        toggleSecondSelect();
+    });
+});
+
+
+
+
+    // let totalFilterCount = 0;
+
+    // function updateTotalFilterCount() {
+    //     totalFilterCount++;
+    //     const totalFilterCountSpan = document.getElementById('totalFilterCount');
+    //     totalFilterCountSpan.textContent = `(${totalFilterCount})`;
+    // }
+
+    function resetRangeSliders() {
+        const rangeSliders = document.querySelectorAll('.fltr input[type="range"]');
+        rangeSliders.forEach(slider => {
+            const defaultValue = parseFloat(slider.getAttribute('value'));
+            slider.value = defaultValue;
+            const outputElement = slider.nextElementSibling;
+            outputElement.value = defaultValue;
+        });
+    }
+
+    function resetFilters() {
+        const selectElements = document.querySelectorAll('.fltr select');
+        selectElements.forEach(select => {
+            select.value = '';
+        });
+
+        const inputElements = document.querySelectorAll('.fltr input[type="text"]');
+        inputElements.forEach(input => {
+            input.value = '';
+        });
+
+        resetRangeSliders();
+        loadAllProperties();
+    }
+
+
+    function loadAllProperties() {
+        $.ajax({
+            url: "{% url 'residential' %}",
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                var properties = response.properties;
+                var propertyContainer = $('.category-main');
+                propertyContainer.empty();
+
+                for (var i = 0; i < properties.length; i++) {
+                    var property = properties[i];
+                    var propertyElement = $('<div class="category-box act" style="background-image: url({{ request.scheme }}://{{ request.get_host }}/' + property.image + ')"></div>');
+                    propertyElement.append('<a href=' + property.weburl + '" target="_blank"><span>' + property.name + '</span></a>');
+                    propertyContainer.append(propertyElement);
+                }
+            },
+            error: function (xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    }
+
+
+    const resetButton = document.getElementById('resetButton');
+
+    resetButton.addEventListener('click', () => {
+        resetFilters();
+        $('#status, #buy, #rent, #auction, #stay, #property_type, #country, #features, #amenities, #date, #bedrooms, #created_at, #continent, #city, #price, #bathroom').val('');
+    });
+    
+    resetButton.addEventListener('click', function() {
+      location.reload();
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const resetButton = document.getElementById('resetButton');
+        
+        resetButton.addEventListener('click', () => {
+            resetFilters();
+            $('#status, #buy, #rent, #auction, #stay, #property_type, #country, #features, #amenities, #date, #bedrooms, #created_at, #continent, #city, #price, #bathroom').val('');
+        });
+    });
+
+    
+
+  
+    //___________________Filter Section Request_________// 
+    $('#city, #created_at, #status, #buy, #rent, #auction, #stay, #property_type, #country, #features, #amenities, #date, #bedrooms,  #continent,  #price, #bathroom').on('change', function () {
+        FilterIndexes();
+    });
+    
+    //___________________Indexes Section Request_________// 
+    $("#city, #exterior, #interior, #energy, #environment, #bar, #convinience, #fire, #gym, #hospital, #park, #nursery, #petrol, #police, #restaurant, #school, #market, #airport, #bus_stop, #train_station, #underground_station, #floor_area, #site_area, #kitchen, #living_room, #bedroom1, #bedroom2, #bedroom3, #seaside, #river").on("input", function(){
+    FilterIndexes();
+    });
+
+    $("#city").on('input',function(){
+        Searchcity();
+    });
+
+    function Searchcity() {
+    const city = $('#city').val();
+    const cityInput = $('#city');
+    const suggestionsContainer = $('#suggestionsContainer');
+    suggestionsContainer.empty();
+
+    $.ajax({
+        type: "GET",
+        url: "{% url 'get_city' %}",
+        data: {
+            city: city
+        },
+        success: function (response) {
+            var dataobj = response.item;
+            suggestionsContainer.html(buildSuggestionsHTML(dataobj));
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching data", error);
+        }
+    });
+
+    // Handle selection from suggestions outside of the AJAX success callback
+    suggestionsContainer.on('click', 'li', function() {
+        const selectedCity = $(this).text();
+        cityInput.val(selectedCity);
+        suggestionsContainer.html('');  // Clear suggestions after selection
+    });
+   }
+
+
+
+
+
+    function FilterIndexes(){
+        const barValue = $("#bar").val();
+        const convinienceValue = $("#convinience").val();
+        const fireValue = $("#fire").val();
+        const gymValue = $("#gym").val();
+        const hospitalValue = $("#hospital").val();
+        const nurseryValue = $("#nursery").val();
+        const parkValue = $("#park").val();
+        const petrolValue = $("#petrol").val();
+        const policeValue = $("#police").val();
+        const restaurantValue = $("#restaurant").val();
+        const schoolValue = $("#school").val();
+        const marketValue = $("#market").val();
+        const airportValue = $("#airport").val();
+        const bus_stopValue = $("#bus_stop").val();
+        const train_stationValue = $("#train_station").val();
+        const underground_stationValue = $("#underground_station").val();
+        const floor_areaValue = $("#floor_area").val();
+        const site_areaValue = $("#site_area").val();
+        const kitchenValue = $("#kitchen").val();
+        const living_roomValue = $("#living_room").val();
+        const bedroom1Value = $("#bedroom1").val();
+        const bedroom2Value = $("#bedroom2").val();
+        const bedroom3Value = $("#bedroom3").val();
+        const seaside = $("#seaside").val();
+        const river = $("#river").val();
+        const exteriorValue = $("#exterior").val();
+        const interiorValue = $("#interior").val();
+        const energyValue = $("#energy").val();
+        const environmentyValue = $("#environment").val();
+
+        // Filter 
+        const created_at = $('#created_at').val();
+        const status = $('#status').val();
+        const rent = $('#rent').val();
+        const buy = $('#buy').val();
+        const auction = $('#auction').val();
+        const stay = $('#stay').val();
+        const property_type = $('#property_type').val();
+        const duration = $('#duration').val();
+        const country = $('#country').val();
+        const features = $('#features').val();
+        // const features = features_output.join(',');
+        const amenities_output = $('#amenities').val();
+        const amenities = amenities_output.join(',');
+        const continent = $('#continent').val();
+        const city = $('#city').val();
+        const bedrooms = $('#bedrooms').val();
+        const price = $('#price').val();
+        const bathroom = $('#bathroom').val();
+            
+            
+            
+            $.ajax({
+                type: "GET", 
+                url: "{% url 'residential' %}", 
+             
+                data: {
+                    bar: barValue,
+                    convinience: convinienceValue,
+                    fire: fireValue,
+                    gym: gymValue,
+                    hospital: hospitalValue,
+                    nursery: nurseryValue,
+                    park: parkValue,
+                    petrol: petrolValue,
+                    police: policeValue,
+                    restaurant: restaurantValue,
+                    school: schoolValue,
+                    restaurant: restaurantValue,
+                    market: marketValue,
+                    airport: airportValue,
+                    bus_stop: bus_stopValue,
+                    train_station: train_stationValue,
+                    underground_station: underground_stationValue,
+                    floor_area: floor_areaValue,
+                    site_area: site_areaValue,
+                    bedroom1: bedroom1Value,
+                    bedroom2: bedroom2Value,
+                    bedroom3: bedroom3Value,
+                    kitchen: kitchenValue,
+                    living_room: living_roomValue,
+                    seaside: seaside,
+                    river: river,
+                    exterior: exteriorValue,
+                    interior: interiorValue,  
+                    energy: energyValue,  
+                    environment: environmentyValue, 
+
+                    created_at: created_at,
+                    status: status,
+                    rent: rent,
+                    buy: buy,
+                    auction: auction,
+                    stay: stay,
+                    property_type: property_type,
+                    duration: duration,
+                    country: country,
+                    features: features,
+                    amenities: amenities,
+                    continent: continent,
+                    city: city,
+                    bedrooms: bedrooms,
+                    price: price,
+                    bathroom: bathroom,
+                },
+                
+                success: function (responses) {
+                    var rproperties = responses.properties;
+                    var rcount = responses.count;
+                    var rcontainer =  $('.category-main');
+                    rcontainer.empty();
+                    var rcountContainer = $('.nav-link');
+                    rcountContainer.empty();
+                    rcountElement =$('<a class="nav-link" data-bs-toggle="tab" href="#menu1">' + rcount + '</a>');
+                    rcountContainer.append(rcountElement);
+
+                    for (var v = 0; v < rproperties.length; v++) {
+                        var rproperty = rproperties[v];
+                        var rpropertyElement = $('<div class="category-box act" style="background-image: url({{ request.scheme }}://{{ request.get_host }}/' + rproperty.image + ')"></div>');
+                        rpropertyElement.append('<a href=' + rproperty.weburl + '" target="_blank"><span>' + rproperty.title + '</span></a>');
+                        rcontainer.append(rpropertyElement);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+        
+    }
+</script>
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $('#status').change(function () {
+                $('.myDiv').hide();
+                $('#' + $(this).val()).show();
+            });
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("label[for='created_at']").appendTo("#created_at+button.dropdown-toggle .filter-option-inner");
+        $("label[for='continent']").appendTo("#continent+button.dropdown-toggle .filter-option-inner");
+        $("label[for='country-select']").appendTo("#country+button.dropdown-toggle .filter-option-inner");
+        $("label[for='city-select']").appendTo("#city+button.dropdown-toggle .filter-option-inner");
+        $("label[for='property_type']").appendTo("#property_type+button.dropdown-toggle .filter-option-inner");
+        $("label[for='Status']").appendTo("#status+button.dropdown-toggle .filter-option-inner");
+        $("label[for='features']").appendTo("#features+button.dropdown-toggle .filter-option-inner");
+        $("label[for='amenities']").appendTo("#amenities+button.dropdown-toggle .filter-option-inner");
+        $("label[for='bedrooms']").appendTo("#bedrooms+button.dropdown-toggle .filter-option-inner");
+        $("label[for='bathroom']").appendTo("#bathroom+button.dropdown-toggle .filter-option-inner");
+		$("label[for='rent']").appendTo("#rent+button.dropdown-toggle .filter-option-inner");
+		$("label[for='buy']").appendTo("#buy+button.dropdown-toggle .filter-option-inner");
+		$("label[for='auction']").appendTo("#auction+button.dropdown-toggle .filter-option-inner");
+		$("label[for='stay']").appendTo("#stay+button.dropdown-toggle .filter-option-inner");
+
+
+    })
+</script>
+
+
+<script>
+    function modifyOffset() {
+        var el, newPoint, newPlace, offset, siblings, k;
+        width = this.offsetWidth;
+        newPoint = (this.value - this.getAttribute("min")) / (this.getAttribute("max") - this.getAttribute("min"));
+        offset = -1;
+        if (newPoint < 0) { newPlace = 0; }
+        else if (newPoint > 1) { newPlace = width; }
+        else { newPlace = width * newPoint + offset; offset -= newPoint; }
+        siblings = this.parentNode.childNodes;
+        for (var i = 0; i < siblings.length; i++) {
+            sibling = siblings[i];
+            if (sibling.id == this.id) { k = true; }
+            if ((k == true) && (sibling.nodeName == "OUTPUT")) {
+                outputTag = sibling;
+            }
+        }
+        outputTag.style.left = newPlace + "px";
+        outputTag.style.marginLeft = offset + "%";
+        outputTag.innerHTML = this.value;
+    }
+
+    function modifyInputs() {
+
+        var inputs = document.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].getAttribute("type") == "range") {
+                inputs[i].onchange = modifyOffset;
+                if ("fireEvent" in inputs[i]) {
+                    inputs[i].fireEvent("onchange");
+                } else {
+                    var evt = document.createEvent("HTMLEvents");
+                    evt.initEvent("change", false, true);
+                    inputs[i].dispatchEvent(evt);
+                }
+            }
+        }
+    }
+
+    modifyInputs();
+</script>
+
+
+<script>
+    const exterInput = document.getElementById('exterior');
+    const lnterInput = document.getElementById('interior');
+
+    const filterCountSpan = document.getElementById('filterCount');
+    const selectedFiltersInfoSpan = document.getElementById('selectedFiltersInfo');
+
+    let filterCount = 0;
+
+    function updateFilterCount() {
+        filterCount = 0;
+
+       
+        
+        if (exterInput.valueAsNumber > 1) {
+            filterCount += 1;
+        }
+        
+        if (lnterInput.valueAsNumber > 1) {
+            filterCount += 1;
+        }
+
+        filterCountSpan.textContent = `(${filterCount})`;
+        updateSelectedFiltersInfo();
+    }
+
+    function updateSelectedFiltersInfo() {
+        const selectedFilters = [];
+
+        
+        if (exterInput.valueAsNumber > 1) {
+            selectedFilters.push(`Exterior: (${exterInput.valueAsNumber})`);
+        }
+        if (lnterInput.valueAsNumber > 1) {
+            selectedFilters.push(`Interior: (${lnterInput.valueAsNumber})`);
+        }
+
+        selectedFiltersInfoSpan.textContent = selectedFilters.join(', ');
+    }
+
+    function resetFilterCount() {
+        filterCount = 0;
+        filterCountSpan.textContent = `(${filterCount})`;
+        updateSelectedFiltersInfo();
+    }
+
+
+    exterInput.addEventListener('input', updateFilterCount);
+    lnterInput.addEventListener('input', updateFilterCount);
+
+    resetButton.addEventListener('click', resetFilterCount)
+
+    // window.addEventListener('load', () => {
+    //     updateTotalFilterCount();
+    // });
+    
+</script>
+
+
+<script>
+    // Ecofriendly Count and selected Index
+    const energyInput = document.getElementById('energy');
+    const environmentInput = document.getElementById('environment');
+
+    const ecoCountSpan = document.getElementById('ecoFilterCount');
+    const selectedEcoFiltersInfoSpan = document.getElementById('selectedEcoFiltersInfo');
+
+    let ecoFilterCount = 0;
+
+    function updateEcoFilterCount() {
+        ecoFilterCount = 0;
+
+        if (energyInput.valueAsNumber > 1) {
+            ecoFilterCount += 1;
+        }
+        
+        if (environmentInput.valueAsNumber > 1) {
+            ecoFilterCount += 1;
+        }
+
+        ecoCountSpan.textContent = `(${ecoFilterCount})`;
+        updateSelectedEcoFiltersInfo();
+    }
+
+    function updateSelectedEcoFiltersInfo() {
+        const selectedEcoFilters = [];
+
+        if (energyInput.valueAsNumber > 1) {
+            selectedEcoFilters.push(`Energy Efficiency: (${energyInput.valueAsNumber})`);
+        }
+        if (environmentInput.valueAsNumber > 1) {
+            selectedEcoFilters.push(`Environmental Impact: (${environmentInput.valueAsNumber})`);
+        }
+
+        selectedEcoFiltersInfoSpan.textContent = selectedEcoFilters.join(', ');
+    }
+
+    function resetEcoFilterCount() {
+        ecoFilterCount = 0;
+        ecoCountSpan.textContent = `(${ecoFilterCount})`;
+        updateSelectedEcoFiltersInfo();
+    }
+
+    energyInput.addEventListener('input', updateEcoFilterCount);
+    environmentInput.addEventListener('input', updateEcoFilterCount);
+
+    resetButton.addEventListener('click', resetEcoFilterCount);
+
+    window.addEventListener('load', () => {
+        updateEcoFilterCount();
+    });
+
+  
+
+   
+   
+</script>
+<!--  Nearby Count and selected Index -->
+
+<script>
+    const seasideinput = document.getElementById('seaside');
+    const riversideinput = document.getElementById('river');
+    const barInput = document.getElementById('bar');
+    const convinienceInput = document.getElementById('convinience');
+    const fireInput = document.getElementById('fire');
+    const gymInput = document.getElementById('gym');
+    const hospitalInput = document.getElementById('hospital');
+    const nurseryInput = document.getElementById('nursery');
+    const parkInput = document.getElementById('park');
+    const petrolInput = document.getElementById('petrol');
+    const policeInput = document.getElementById('police');
+    const restaurantInput = document.getElementById('restaurant');
+    const schoolInput = document.getElementById('school');
+    const marketInput = document.getElementById('market');
+
+    const nearFilterCountSpan = document.getElementById('NearFilterCount');
+    const selectednearFiltersInfoSpan = document.getElementById('selectednearFiltersInfo');
+
+    let nearFilterCount = 0;
+
+    function updateNearFilterCount() {
+        nearFilterCount = 0;
+
+        if (seasideinput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (riversideinput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (barInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (convinienceInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (fireInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (gymInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (hospitalInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (nurseryInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (parkInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (petrolInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (policeInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (restaurantInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (schoolInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        if (marketInput.valueAsNumber > 1) {
+            nearFilterCount += 1;
+        }
+
+        nearFilterCountSpan.textContent = `(${nearFilterCount})`;
+        updateSelectedNearFiltersInfo();
+    }
+
+    function updateSelectedNearFiltersInfo() {
+        const selectedNearFilters = [];
+
+        if (seasideinput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Seaside: (${seasideinput.valueAsNumber})`);
+        }
+
+        if (riversideinput.valueAsNumber > 1) {
+            selectedNearFilters.push(`RiverSide: (${riversideinput.valueAsNumber})`);
+        }
+
+        if (barInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Bar: (${barInput.valueAsNumber})`);
+        }
+
+        if (convinienceInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Convenience Store: (${convinienceInput.valueAsNumber})`);
+        }
+
+        if (fireInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Fire Station: (${fireInput.valueAsNumber})`);
+        }
+
+        if (gymInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Gym: (${gymInput.valueAsNumber})`);
+        }
+
+        if (hospitalInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Hospital: (${hospitalInput.valueAsNumber})`);
+        }
+
+        if (nurseryInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Nursery: (${nurseryInput.valueAsNumber})`);
+        }
+
+        if (parkInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Park: (${parkInput.valueAsNumber})`);
+        }
+
+        if (petrolInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Petrol Station: (${petrolInput.valueAsNumber})`);
+        }
+
+        if (policeInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Police Station: (${policeInput.valueAsNumber})`);
+        }
+
+        if (restaurantInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Restaurant: (${restaurantInput.valueAsNumber})`);
+        }
+
+        if (schoolInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`School: (${schoolInput.valueAsNumber})`);
+        }
+
+        if (marketInput.valueAsNumber > 1) {
+            selectedNearFilters.push(`Super Market: (${marketInput.valueAsNumber})`);
+        }
+
+        selectednearFiltersInfoSpan.textContent = selectedNearFilters.join(', ');
+    }
+
+    function resetNearFilterCount() {
+        nearFilterCount = 0;
+        nearFilterCountSpan.textContent = `(${nearFilterCount})`;
+        updateSelectedNearFiltersInfo();
+    }
+    seasideinput.addEventListener('input', updateNearFilterCount);
+    riversideinput.addEventListener('input', updateNearFilterCount);
+    barInput.addEventListener('input', updateNearFilterCount);
+    convinienceInput.addEventListener('input', updateNearFilterCount);
+    fireInput.addEventListener('input', updateNearFilterCount);
+    gymInput.addEventListener('input', updateNearFilterCount);
+    hospitalInput.addEventListener('input', updateNearFilterCount);
+    nurseryInput.addEventListener('input', updateNearFilterCount);
+    parkInput.addEventListener('input', updateNearFilterCount);
+    petrolInput.addEventListener('input', updateNearFilterCount);
+    policeInput.addEventListener('input', updateNearFilterCount);
+    restaurantInput.addEventListener('input', updateNearFilterCount);
+    schoolInput.addEventListener('input', updateNearFilterCount);
+    marketInput.addEventListener('input', updateNearFilterCount);
+
+    resetButton.addEventListener('click', resetNearFilterCount);
+
+    window.addEventListener('load', () => {
+        updateNearFilterCount();
+    });
+</script>
+
+
+<script>
+    const floorAreaInput = document.getElementById('floor_area');
+    const siteAreaInput = document.getElementById('site_area');
+    const kitchenInput = document.getElementById('kitchen');
+    const livingRoomInput = document.getElementById('living_room');
+
+    const sizeFilterCountSpan = document.getElementById('SizeFilterCount');
+    const selectedSizeFiltersInfoSpan = document.getElementById('selectedsizeFiltersInfo');
+
+    let sizeFilterCount = 0;
+
+    function updateSizeFilterCount() {
+        sizeFilterCount = 0;
+
+        if (floorAreaInput.valueAsNumber > 1) {
+            sizeFilterCount += 1;
+        }
+
+        if (siteAreaInput.valueAsNumber > 1) {
+            sizeFilterCount += 1;
+        }
+
+        if (kitchenInput.valueAsNumber > 1) {
+            sizeFilterCount += 1;
+        }
+
+        if (livingRoomInput.valueAsNumber > 1) {
+            sizeFilterCount += 1;
+        }
+
+        sizeFilterCountSpan.textContent = `(${sizeFilterCount})`;
+        updateSelectedSizeFiltersInfo();
+    }
+
+    function updateSelectedSizeFiltersInfo() {
+        const selectedSizeFilters = [];
+
+        if (floorAreaInput.valueAsNumber > 1) {
+            selectedSizeFilters.push(`Floor Area: (${floorAreaInput.valueAsNumber})`);
+        }
+
+        if (siteAreaInput.valueAsNumber > 1) {
+            selectedSizeFilters.push(`Site Area: (${siteAreaInput.valueAsNumber})`);
+        }
+
+        if (kitchenInput.valueAsNumber > 1) {
+            selectedSizeFilters.push(`Kitchen: (${kitchenInput.valueAsNumber})`);
+        }
+
+        if (livingRoomInput.valueAsNumber > 1) {
+            selectedSizeFilters.push(`Living Room: (${livingRoomInput.valueAsNumber})`);
+        }
+
+        selectedSizeFiltersInfoSpan.textContent = selectedSizeFilters.join(', ');
+    }
+
+    function resetSizeFilterCount() {
+        sizeFilterCount = 0;
+        sizeFilterCountSpan.textContent = `(${sizeFilterCount})`;
+        updateSelectedSizeFiltersInfo();
+    }
+
+    floorAreaInput.addEventListener('input', updateSizeFilterCount);
+    siteAreaInput.addEventListener('input', updateSizeFilterCount);
+    kitchenInput.addEventListener('input', updateSizeFilterCount);
+    livingRoomInput.addEventListener('input', updateSizeFilterCount);
+
+    resetButton.addEventListener('click', resetSizeFilterCount);
+
+    window.addEventListener('load', () => {
+        updateSizeFilterCount();
+    });
+</script>
+
+
+<script>
+    const airportInput = document.getElementById('airport');
+    const busStopInput = document.getElementById('bus_stop');
+    const trainStationInput = document.getElementById('train_station');
+    const undergroundStationInput = document.getElementById('underground_station');
+
+    const transFilterCountSpan = document.getElementById('TransFilterCount');
+    const selectedTransFiltersInfoSpan = document.getElementById('selectedTransFiltersInfo');
+
+    let transFilterCount = 0;
+
+    function updateTransFilterCount() {
+        transFilterCount = 0;
+
+        if (airportInput.valueAsNumber > 1) {
+            transFilterCount += 1;
+        }
+
+        if (busStopInput.valueAsNumber > 1) {
+            transFilterCount += 1;
+        }
+
+        if (trainStationInput.valueAsNumber > 1) {
+            transFilterCount += 1;
+        }
+
+        if (undergroundStationInput.valueAsNumber > 1) {
+            transFilterCount += 1;
+        }
+
+        transFilterCountSpan.textContent = `(${transFilterCount})`;
+        updateSelectedTransFiltersInfo();
+    }
+
+    function updateSelectedTransFiltersInfo() {
+        const selectedTransFilters = [];
+
+        if (airportInput.valueAsNumber > 1) {
+            selectedTransFilters.push(`Airport: (${airportInput.valueAsNumber})`);
+        }
+
+        if (busStopInput.valueAsNumber > 1) {
+            selectedTransFilters.push(`Bus Stop: (${busStopInput.valueAsNumber})`);
+        }
+
+        if (trainStationInput.valueAsNumber > 1) {
+            selectedTransFilters.push(`Train Station: (${trainStationInput.valueAsNumber})`);
+        }
+
+        if (undergroundStationInput.valueAsNumber > 1) {
+            selectedTransFilters.push(`Underground Station: (${undergroundStationInput.valueAsNumber})`);
+        }
+
+        selectedTransFiltersInfoSpan.textContent = selectedTransFilters.join(', ');
+    }
+
+    function resetTransFilterCount() {
+        transFilterCount = 0;
+        transFilterCountSpan.textContent = `(${transFilterCount})`;
+        updateSelectedTransFiltersInfo();
+    }
+
+    airportInput.addEventListener('input', updateTransFilterCount);
+    busStopInput.addEventListener('input', updateTransFilterCount);
+    trainStationInput.addEventListener('input', updateTransFilterCount);
+    undergroundStationInput.addEventListener('input', updateTransFilterCount);
+
+    resetButton.addEventListener('click', resetTransFilterCount);
+
+    window.addEventListener('load', () => {
+        updateTransFilterCount();
+    });
+</script>
+
+
+<script>
+    const filterForm = document.querySelector('.fltr');
+    const selectedFilterCountSpan = document.getElementById('selectedFilterCount');
+    const selectedFilterNamesDiv = document.getElementById('selectedFilterNames');
+    const resetButtonn = document.getElementById('resetButton');
+
+    let selectedFilterCount = 0;
+    const selectedFilterNames = [];
+
+    function updateSelectedFilterCountAndNames() {
+        selectedFilterCount = 0;
+        selectedFilterNames.length = 0;
+
+        const filterInputs = filterForm.querySelectorAll('select, input[type="text"]');
+        filterInputs.forEach(input => {
+            if (input.tagName === 'SELECT') {
+                const selectedOptions = Array.from(input.selectedOptions);
+                if (selectedOptions.length > 0) {
+                    selectedOptions.forEach(option => {
+                        const optionValue = option.value.trim(); 
+                        if (optionValue !== '') {
+                            selectedFilterCount++;
+                            selectedFilterNames.push(optionValue);
+                        }
+                    });
+                }
+            } else if (input.type === 'text' && input.value !== '') {
+                const inputValue = input.value.trim(); 
+                if (inputValue !== '') {
+                    selectedFilterCount++;
+                    selectedFilterNames.push(inputValue);
+                }
+            }
+        });
+
+        selectedFilterCountSpan.textContent = `(${selectedFilterCount})`;
+        updateSelectedFilterNamesDisplay();
+    }
+
+    function updateSelectedFilterNamesDisplay() {
+        const nonEmptyFilterNames = selectedFilterNames.filter(name => name.trim() !== ''); 
+        selectedFilterNamesDiv.textContent = nonEmptyFilterNames.join(', ');
+    }
+
+    function resetSelectedFilterCountAndNames() {
+        selectedFilterCount = 0;
+        selectedFilterNames.length = 0;
+        selectedFilterCountSpan.textContent = `(${selectedFilterCount})`;
+        selectedFilterNamesDiv.textContent = '';
+    }
+
+    filterForm.addEventListener('change', updateSelectedFilterCountAndNames);
+    resetButtonn.addEventListener('click', resetSelectedFilterCountAndNames);
+</script>
+
+<script>
+$('.filter-sidebar-inner').scroll(function(){
+    if ($(this).scrollTop() > 10) {
+       $('.filter-sidebar-inner .sticky-top').addClass('newClass');
+    } else {
+       $('.filter-sidebar-inner .sticky-top').removeClass('newClass');
+    }
+});
+
+</script>
+
+<!-- Country City Update According to  Continent -->
+<script>
+    $(document).ready(function () {
+        $('#continent').on('change', function () {
+           
+        const all_countries = $('#all_countries select');
+        const continent_val = $('#continent').val();
+        const country = $('#country').val();
+        all_countries.empty();
+        const all_cities =  $('#all_cities select');
+        all_cities.empty();
+        if(continent_val==''){
+            all_countries.append(` <option value="">Select Country</option>
+                                        <option value="Afghanistan">Afghanistan({{ Afghanistan }})</option>
+                                        <option value="Aland Islands">Aland Islands({{ Aland_Islands }})</option>
+                                        <option value="Albania">Albania({{ Albania }})</option>
+                                        <option value="Algeria">Algeria({{ Algeria }})</option>
+                                        <option value="American Samoa">American Samoa({{ American_Samoa }})</option>
+                                        <option value="Andorra">Andorra({{ Andorra }})</option>
+                                        <option value="Angola">Angola({{ Angola }})</option>
+                                        <option value="Anguilla">Anguilla({{ Anguilla }})</option>
+                                        <option value="Antarctica">Antarctica({{ Antarctica }})</option>
+                                        <option value="Antigua and Barbuda">Antigua and Barbuda({{ Antigua_and_Barbuda }})</option>
+                                        <option value="Argentina">Argentina({{ Argentina }})</option>
+                                        <option value="Armenia">Armenia({{ Armenia }})</option>
+                                        <option value="Aruba">Aruba({{ Aruba }})</option>
+                                        <option value="Australia">Australia({{ Australia }})</option>
+                                        <option value="Austria">Austria({{ Austria }})</option>
+                                        <option value="Azerbaijan">Azerbaijan({{ Azerbaijan }})</option>
+                                        <option value="Bahamas">Bahamas({{ Bahamas }})</option>
+                                        <option value="Bahrain">Bahrain({{ Bahrain }})</option>
+                                        <option value="Bangladesh">Bangladesh({{ Bangladesh }})</option>
+                                        <option value="Barbados">Barbados({{ Barbados }})</option>
+                                        <option value="Belarus">Belarus({{ Belarus }})</option>
+                                        <option value="Belgium">Belgium({{ Belgium }})</option>
+                                        <option value="Belize">Belize({{ Belize }})</option>
+                                        <option value="Benin">Benin({{ Benin }})</option>
+                                        <option value="Bermuda">Bermuda({{ Bermuda }})</option>
+                                        <option value="Bhutan">Bhutan({{ Bhutan }})</option>
+                                        <option value="Bolivia">Bolivia({{ Bolivia }})</option>
+                                        <option value="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba({{ Bonaire_Sint_Eustatius_Saba }})</option>
+                                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina({{ Bosnia_and_Herzegovina }})</option>
+                                        <option value="Botswana">Botswana({{ Botswana }})</option>
+                                        <option value="Bouvet Island">Bouvet Island({{ Bouvet_Island }})</option>
+                                        <option value="Brazil">Brazil({{ Brazil }})</option>
+                                        <option value="British Indian Ocean Territory">British Indian Ocean Territory({{ British_Indian_Ocean_Territory }})</option>
+                                        <option value="Brunei Darussalam">Brunei Darussalam({{ Brunei_Darussalam }})</option>
+                                        <option value="Bulgaria">Bulgaria({{ Bulgaria }})</option>
+                                        <option value="Burkina Faso">Burkina Faso({{ Burkina_Faso }})</option>
+                                        <option value="Burundi">Burundi({{ Burundi }})</option>
+                                        <option value="Cambodia">Cambodia({{ Cambodia }})</option>
+                                        <option value="Cameroon">Cameroon({{ Cameroon }})</option>
+                                        <option value="Canada">Canada({{ Canada }})</option>
+                                        <option value="Cape Verde">Cape Verde({{ Cape_Verde }})</option>
+                                        <option value="Cayman Islands">Cayman Islands({{ Cayman_Islands }})</option>
+                                        <option value="Central African Republic">Central African Republic({{ Central_African_Republic }})</option>
+                                        <option value="Chad">Chad({{ Chad }})</option>
+                                        <option value="Chile">Chile({{ Chile }})</option>
+                                        <option value="China">China({{ China }})</option>
+                                        <option value="Christmas Island">Christmas Island({{ Afghanistan }})</option>
+                                        <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands({{ Cocos_Islands }})</option>
+                                        <option value="Colombia">Colombia({{ Colombia }})</option>
+                                        <option value="Comoros">Comoros({{ Comoros }})</option>
+                                        <option value="Congo">Congo({{ Congo }})</option>
+                                        <option value="Congo, Democratic Republic of the Congo">Congo, Democratic Republic of the Congo({{ Republic_of_the_Congo }})</option>
+                                        <option value="Cook Islands">Cook Islands({{ Cook_Islands }})</option>
+                                        <option value="Costa Rica">Costa Rica({{ Costa_Rica }})</option>
+                                        <option value="Cote D'Ivoire">Cote D'Ivoire({{ Cote_DIvoire }})</option>
+                                        <option value="Croatia">Croatia({{ Croatia }})</option>
+                                        <option value="Cuba">Cuba({{ Cuba }})</option>
+                                        <option value="Curacao">Curacao({{ Curacao }})</option>
+                                        <option value="Cyprus">Cyprus({{ Cyprus }})</option>
+                                        <option value="Czech Republic">Czech Republic({{ Czech_Republic }})</option>
+                                        <option value="Denmark">Denmark({{ Denmark }})</option>
+                                        <option value="Djibouti">Djibouti({{ Djibouti }})</option>
+                                        <option value="Dominica">Dominica({{ Dominica }})</option>
+                                        <option value="Dominican Republic">Dominican Republic({{ Dominican_Republic }})</option>
+                                        <option value="Ecuador">Ecuador({{ Ecuador }})</option>
+                                        <option value="Egypt">Egypt({{ Egypt }})</option>
+                                        <option value="El Salvador">El Salvador({{ El_Salvador }})</option>
+                                        <option value="Equatorial Guinea">Equatorial Guinea({{ Equatorial_Guinea }})</option>
+                                        <option value="Eritrea">Eritrea({{ Eritrea }})</option>
+                                        <option value="Estonia">Estonia({{ Estonia }})</option>
+                                        <option value="Ethiopia">Ethiopia({{ Ethiopia }})</option>
+                                        <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)({{ Falkland_Islands }})</option>
+                                        <option value="Faroe Islands">Faroe Islands({{ Faroe_Islands }})</option>
+                                        <option value="Fiji">Fiji({{ Fiji }})</option>
+                                        <option value="Finland">Finland({{ Finland }})</option>
+                                        <option value="France">France({{ France }})</option>
+                                        <option value="French Guiana">French Guiana({{ French_Guiana }})</option>
+                                        <option value="French Polynesia">French Polynesia({{ French_Polynesia }})</option>
+                                        <option value="French Southern Territories">French Southern Territories({{ French_Southern_Territories }})</option>
+                                        <option value="Gabon">Gabon({{ Gabon }})</option>
+                                        <option value="Gambia">Gambia({{ Gambia }})</option>
+                                        <option value="Georgia">Georgia({{ Georgia }})</option>
+                                        <option value="Germany">Germany({{ Germany }})</option>
+                                        <option value="Ghana">Ghana({{ Ghana }})</option>
+                                        <option value="Gibraltar">Gibraltar({{ Gibraltar }})</option>
+                                        <option value="Greece">Greece({{ Greece }})</option>
+                                        <option value="Greenland">Greenland({{ Greenland }})</option>
+                                        <option value="Grenada">Grenada({{ Grenada }})</option>
+                                        <option value="Guadeloupe">Guadeloupe({{ Guadeloupe }})</option>
+                                        <option value="Guam">Guam({{ Guam }})</option>
+                                        <option value="Guatemala">Guatemala({{ Guatemala }})</option>
+                                        <option value="Guernsey">Guernsey({{ Guernsey }})</option>
+                                        <option value="Guinea">Guinea({{ Guinea }})</option>
+                                        <option value="Guinea-Bissau">Guinea-Bissau({{ Guinea_Bissau }})</option>
+                                        <option value="Guyana">Guyana({{ Guyana }})</option>
+                                        <option value="Haiti">Haiti({{ Haiti }})</option>
+                                        <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands({{ Heard_Island_and_Mcdonald_Islands }})</option>
+                                        <option value="Holy See (Vatican City State)">Holy See (Vatican City State)({{ Holy_See }})</option>
+                                        <option value="Honduras">Honduras({{ Honduras }})</option>
+                                        <option value="Hong Kong">Hong Kong({{ Hong_Kong }})</option>
+                                        <option value="Hungary">Hungary({{ Hungary }})</option>
+                                        <option value="Iceland">Iceland({{ Iceland }})</option>
+                                        <option value="India">India({{ India }})</option>
+                                        <option value="Indonesia">Indonesia({{ Indonesia }})</option>
+                                        <option value="Iran">Iran({{ Iran }})</option>
+                                        <option value="Iraq">Iraq({{ Iraq }})</option>
+                                        <option value="Ireland">Ireland({{ Ireland }})</option>
+                                        <option value="Isle of Man">Isle of Man({{ Isle_of_Man }})</option>
+                                        <option value="Israel">Israel({{ Israel }})</option>
+                                        <option value="Italy">Italy({{ Italy }})</option>
+                                        <option value="Jamaica">Jamaica({{ Jamaica }})</option>
+                                        <option value="Japan">Japan({{ Japan }})</option>
+                                        <option value="Jersey">Jersey({{ Jersey }})</option>
+                                        <option value="Jordan">Jordan({{ Jordan }})</option>
+                                        <option value="Kazakhstan">Kazakhstan({{ Kazakhstan }})</option>
+                                        <option value="Kenya">Kenya({{ Kenya }})</option>
+                                        <option value="Kiribati">Kiribati({{ Kiribati }})</option>
+                                        <option value="Korea">Korea({{ Korea }})</option>
+                                        <option value="Kosovo">Kosovo({{ Kosovo }})</option>
+                                        <option value="Kuwait">Kuwait({{ Kuwait }})</option>
+                                        <option value="Kyrgyzstan">Kyrgyzstan({{ Kyrgyzstan }})</option>
+                                        <option value="Lao People's Democratic Republic">Lao People's Democratic Republic({{ Lao_People_Democratic_Republic }})</option>
+                                        <option value="Latvia">Latvia({{ Latvia }})</option>
+                                        <option value="Lebanon">Lebanon({{ Lebanon }})</option>
+                                        <option value="Lesotho">Lesotho({{ Lesotho }})</option>
+                                        <option value="Liberia">Liberia({{ Liberia }})</option>
+                                        <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya({{ Libyan_Arab_Jamahiriya }})</option>
+                                        <option value="Liechtenstein">Liechtenstein({{ Liechtenstein }})</option>
+                                        <option value="Lithuania">Lithuania({{ Lithuania }})</option>
+                                        <option value="Luxembourg">Luxembourg({{ Luxembourg }})</option>
+                                        <option value="Macao">Macao({{ Macao }})</option>
+                                        <option value="Macedonia, the Former Yugoslav Republic of">Macedonia, the Former Yugoslav Republic of({{ Macedonia }})</option>
+                                        <option value="Madagascar">Madagascar({{ Madagascar }})</option>
+                                        <option value="Malawi">Malawi({{ Malawi }})</option>
+                                        <option value="Malaysia">Malaysia({{ Malaysia }})</option>
+                                        <option value="Maldives">Maldives({{ Maldives }})</option>
+                                        <option value="Mali">Mali({{ Mali }})</option>
+                                        <option value="Malta">Malta({{ Malta }})</option>
+                                        <option value="Marshall Islands">Marshall Islands({{ Marshall_Islands }})</option>
+                                        <option value="Martinique">Martinique({{ Martinique }})</option>
+                                        <option value="Mauritania">Mauritania({{ Mauritania }})</option>
+                                        <option value="Mauritius">Mauritius({{ Mauritius }})</option>
+                                        <option value="Mayotte">Mayotte({{ Mayotte }})</option>
+                                        <option value="Mexico">Mexico({{ Mexico }})</option>
+                                        <option value="Micronesia, Federated States of">Micronesia, Federated States of({{ Micronesia_Federated_States_of }})</option>
+                                        <option value="Moldova, Republic of">Moldova, Republic of({{ Moldova_Republic_of }})</option>
+                                        <option value="Monaco">Monaco({{ Monaco }})</option>
+                                        <option value="Mongolia">Mongolia({{ Mongolia }})</option>
+                                        <option value="Montenegro">Montenegro({{ Montenegro }})</option>
+                                        <option value="Montserrat">Montserrat({{ Montserrat }})</option>
+                                        <option value="Morocco">Morocco({{ Morocco }})</option>
+                                        <option value="Mozambique">Mozambique({{ Mozambique }})</option>
+                                        <option value="Myanmar">Myanmar({{ Myanmar }})</option>
+                                        <option value="Namibia">Namibia({{ Namibia }})</option>
+                                        <option value="Nauru">Nauru({{ Nauru }})</option>
+                                        <option value="Nepal">Nepal({{ Nepal }})</option>
+                                        <option value="Netherlands">Netherlands({{ Netherlands }})</option>
+                                        <option value="Netherlands Antilles">Netherlands Antilles({{ Netherlands_Antilles }})</option>
+                                        <option value="New Caledonia">New Caledonia({{ New_Caledonia }})</option>
+                                        <option value="New Zealand">New Zealand({{ New_Zealand }})</option>
+                                        <option value="Nicaragua">Nicaragua({{ Nicaragua }})</option>
+                                        <option value="Niger">Niger({{ Niger }})</option>
+                                        <option value="Nigeria">Nigeria({{ Nigeria }})</option>
+                                        <option value="Niue">Niue({{ Niue }})</option>
+                                        <option value="Norfolk Island">Norfolk Island({{ Norfolk_Island }})</option>
+                                        <option value="Northern Mariana Islands">Northern Mariana Islands({{ Northern_Mariana_Islands }})</option>
+                                        <option value="Norway">Norway({{ Norway }})</option>
+                                        <option value="Oman">Oman({{ Oman }})</option>
+                                        <option value="Pakistan">Pakistan({{ Pakistan }})</option>
+                                        <option value="Palau">Palau({{ Palau }})</option>
+                                        <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied({{ Palestinian }})</option>
+                                        <option value="Panama">Panama({{ Panama }})</option>
+                                        <option value="Papua New Guinea">Papua New Guinea({{ Papua_New_Guinea }})</option>
+                                        <option value="Paraguay">Paraguay({{ Paraguay }})</option>
+                                        <option value="Peru">Peru({{ Peru }})</option>
+                                        <option value="Philippines">Philippines({{ Philippines }})</option>
+                                        <option value="Pitcairn">Pitcairn({{ Pitcairn }})</option>
+                                        <option value="Poland">Poland({{ Poland }})</option>
+                                        <option value="Portugal">Portugal({{ Portugal }})</option>
+                                        <option value="Puerto Rico">Puerto Rico({{ Puerto_Rico }})</option>
+                                        <option value="Qatar">Qatar({{ Qatar }})</option>
+                                        <option value="Reunion">Reunion({{ Reunion }})</option>
+                                        <option value="Romania">Romania({{ Romania }})</option>
+                                        <option value="Russian Federation">Russian Federation({{ Russian_Federation }})</option>
+                                        <option value="Rwanda">Rwanda({{ Rwanda }})</option>
+                                        <option value="Saint Barthelemy">Saint Barthelemy({{ Saint_Barthelemy }})</option>
+                                        <option value="Saint Helena">Saint Helena({{ Saint_Helena }})</option>
+                                        <option value="Saint Kitts and Nevis">Saint Kitts and Nevis({{ Saint_Kitts_and_Nevis }})</option>
+                                        <option value="Saint Lucia">Saint Lucia({{ Saint_Lucia }})</option>
+                                        <option value="Saint Martin">Saint Martin({{ Saint_Martin }})</option>
+                                        <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon({{ Saint_Pierre_and_Miquelon }})</option>
+                                        <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines({{ Saint_Vincent_and_the_Grenadines }})</option>
+                                        <option value="Samoa">Samoa({{ Samoa }})</option>
+                                        <option value="San Marino">San Marino({{ San_Marino }})</option>
+                                        <option value="Sao Tome and Principe">Sao Tome and Principe({{ Sao_Tome_and_Principe }})</option>
+                                        <option value="Saudi Arabia">Saudi Arabia({{ Saudi_Arabia }})</option>
+                                        <option value="Senegal">Senegal({{ Senegal }})</option>
+                                        <option value="Serbia">Serbia({{ Serbia }})</option>
+                                        <option value="Serbia and Montenegro">Serbia and Montenegro({{ Serbia_and_Montenegro }})</option>
+                                        <option value="Seychelles">Seychelles({{ Seychelles }})</option>
+                                        <option value="Sierra Leone">Sierra Leone({{ Sierra_Leone }})</option>
+                                        <option value="Singapore">Singapore({{ Singapore }})</option>
+                                        <option value="Sint Maarten">Sint Maarten({{ Sint_Maarten }})</option>
+                                        <option value="Slovakia">Slovakia({{ Slovakia }})</option>
+                                        <option value="Slovenia">Slovenia({{ Slovenia }})</option>
+                                        <option value="Solomon Islands">Solomon Islands({{ Solomon_Islands }})</option>
+                                        <option value="Somalia">Somalia({{ Somalia }})</option>
+                                        <option value="South Africa">South Africa({{ South_Africa }})</option>
+                                        <option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands({{ South_Georgia_and_the_South_Sandwich_Islands }})</option>
+                                        <option value="South Sudan">South Sudan({{ South_Sudan }})</option>
+                                        <option value="Spain">Spain({{ Spain }})</option>
+                                        <option value="Sri Lanka">Sri Lanka({{ Sri_Lanka }})</option>
+                                        <option value="Sudan">Sudan({{ Sudan }})</option>
+                                        <option value="Suriname">Suriname({{ Suriname }})</option>
+                                        <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen({{ Svalbard_and_Jan_Mayen }})</option>
+                                        <option value="Swaziland">Swaziland({{ Swaziland }})</option>
+                                        <option value="Sweden">Sweden({{ Sweden }})</option>
+                                        <option value="Switzerland">Switzerland({{ Switzerland }})</option>
+                                        <option value="Syrian Arab Republic">Syrian Arab Republic({{ Syrian_Arab_Republic }})</option>
+                                        <option value="Taiwan">Taiwan({{ Taiwan }})</option>
+                                        <option value="Tajikistan">Tajikistan({{ Tajikistan }})</option>
+                                        <option value="Tanzania">Tanzania, United Republic of({{ Tanzania }})</option>
+                                        <option value="Thailand">Thailand({{ Thailand }})</option>
+                                        <option value="Timor-Leste">Timor-Leste({{ Timor_Leste }})</option>
+                                        <option value="Togo">Togo({{ Togo }})</option>
+                                        <option value="Tokelau">Tokelau({{ Tokelau }})</option>
+                                        <option value="Tonga">Tonga({{ Tonga }})</option>
+                                        <option value="Trinidad and Tobago">Trinidad and Tobago({{ Trinidad_and_Tobago }})</option>
+                                        <option value="Tunisia">Tunisia({{ Tunisia }})</option>
+                                        <option value="Turkey">Turkey({{ Turkey }})</option>
+                                        <option value="Turkmenistan">Turkmenistan({{ Turkmenistan }})</option>
+                                        <option value="Turks and Caicos Islands">Turks and Caicos Islands({{ Turks_and_Caicos_Islands }})</option>
+                                        <option value="Tuvalu">Tuvalu({{ Tuvalu }})</option>
+                                        <option value="Uganda">Uganda({{ Uganda }})</option>
+                                        <option value="Ukraine">Ukraine({{ Ukraine }})</option>
+                                        <option value="United Arab Emirates">United Arab Emirates({{ United_Arab_Emirates }})</option>
+                                        <option value="United Kingdom(UK)">United Kingdom(UK)({{ United_Kingdom }})</option>
+                                        <option value="United State America">United State America({{ United_States }})</option>
+                                        <option value="United States Minor Outlying Islands">United States Minor Outlying Islands({{ United_States_Minor_Outlying_Islands }})</option>
+                                        <option value="Uruguay">Uruguay({{ Uruguay }})</option>
+                                        <option value="Uzbekistan">Uzbekistan({{ Uzbekistan }})</option>
+                                        <option value="Vanuatu">Vanuatu({{ Vanuatu }})</option>
+                                        <option value="Venezuela">Venezuela({{ Venezuela }})</option>
+                                        <option value="Viet Nam">Viet Nam({{ Viet_Nam }})</option>
+                                        <option value="Virgin Islands, British">Virgin Islands, British({{ Virgin_Islands_British }})</option>
+                                        <option value="Virgin Islands, U.s.">Virgin Islands, U.s.({{ Virgin_Islands_Us }})</option>
+                                        <option value="Wallis and Futuna">Wallis and Futuna({{ Wallis_and_Futuna }})</option>
+                                        <option value="Western Sahara">Western Sahara({{ Western_Sahara }})</option>
+                                        <option value="Yemen">Yemen({{ Yemen }})</option>
+                                        <option value="Zambia">Zambia({{ Zambia }})</option>
+                                        <option value="Zimbabwe">Zimbabwe({{ Zimbabwe }})</option>`);
+
+                                        var defaultOption = '<option value="">Select City</option>';
+                                        all_cities.append(defaultOption); 
+                                        {% for city in CityNames %}
+                                        var cityOption = '<option value="{{ city.city }}">{{ city.city }} ({{ city.name_count }})</option>';
+                                        all_cities.append(cityOption);
+                                       {% endfor %}             
+
+         }else{
+    
+
+            
+
+            
+            $.ajax({
+                type: "GET",
+                url:"{% url 'get_data' %}",
+                data:{
+                    continent_val: continent_val,
+                },
+                success:function(responses){
+                    var sel_countires = responses.country_list;
+                    let sel_cities = responses.city_list;
+                    
+                     all_countries.append('<option value=""> Select Country</option>');
+                    for (var c = 0; c < sel_countires.length; c++) {
+                        var filter_country= sel_countires[c];
+                        all_countries.append('<option value="'+ filter_country.countries +'">'+ filter_country.countries  +'('+ filter_country.country_count +') </option>');
+                        
+                    }
+
+                    all_cities.append('<option value=""> Select City</option>');
+                    for (let o = 0; o < sel_cities.length; o++) {
+                        let filter_citites= sel_cities[o];
+                        all_cities.append('<option value="'+ filter_citites.title +'">'+ filter_citites.title  +'('+ filter_citites.title_count +') </option>');
+                        
+                    }
+                    
+              
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+         }
+
+        });
+     
+
+        $('#country').on('change', function () {
+            const continent_val = $('#continent').val();
+            
+            const country_val = $('#country').val();
+            const all_cities =  $('#all_cities select');
+            all_cities.empty();
+            $.ajax({
+                type: "GET",
+                url:"{% url 'get_data' %}",
+                data:{
+                    country_val: country_val,
+                },
+                success:function(responses){
+                    let sel_cities = responses.city_list;
+                    all_cities.append('<option value=""> Select City</option>');
+                    for (let o = 0; o < sel_cities.length; o++) {
+                        let filter_citites= sel_cities[o];
+                        all_cities.append('<option value="'+ filter_citites.title +'">'+ filter_citites.title  +'('+ filter_citites.title_count +') </option>');
+                        
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+
+
+        });
+    });
+</script>
+
+
+
+{% endblock %}

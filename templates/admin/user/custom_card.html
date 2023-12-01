@@ -1,0 +1,40 @@
+    <div class="row">
+    <div class="col-6 text-left">
+    <p class="iocn-img"><img src="/static/admin/assets/images/fork.svg" alt="img"> Users</p>
+    </div>
+    <div class="col-6 text-right bredrcum">
+    <a href="{% url 'dashboard' %}">Dashboard</a>/ Topics
+    </div>
+    </div>
+    
+    
+    
+    <div class="row usser-boxes">
+    <div class="col-sm-3 mb-5">
+    <div class="user-box">
+    <div class="head">Registerd</div>
+    <div class="ttoal-cnt">{{ users.count }}</div>
+    </div>
+    </div>
+    
+    <div class="col-sm-3 mb-5">
+    <div class="user-box purpel">
+    <div class="head">Subscribed</div>
+    <div class="ttoal-cnt">0</div>
+    </div>
+    </div>
+    
+    <div class="col-sm-3 mb-5">
+    <div class="user-box green">
+    <div class="head">New<span>SINCE LAST LOGIN<span></div>
+    <div class="ttoal-cnt">0</div>
+    </div>
+    </div>
+    
+    <div class="col-sm-3 mb-5">
+    <div class="user-box red">
+    <div class="head">Delete<span>SINCE LAST LOGIN<span></div>
+    <div class="ttoal-cnt">{{ deleted_users.count }}</div>
+    </div>
+    </div>
+    </div> 

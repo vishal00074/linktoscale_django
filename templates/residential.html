@@ -1,0 +1,364 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="filter-sidebar">
+    <div class="filter-sidebar-inner">
+        <div class="filter-top">
+            <div class="top-logo">
+                <a href="{% url '' %}"><img src="/static/images/b-logo.png" /></a>
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#home">{{ properties.count }}</a>
+                </li>
+                <li class="reload">
+                    <i class="fas fa-sync"></i>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#menu1">{{ properties.count }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div id="home" class="tab-pane active">
+                <div class="accordion" id="myFilter">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne">Filters <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr" action="" method="post">
+                             
+                                    <input type="text" placeholder="Country" id="search-input" name="country">
+                                    <select id="status" name="status">
+                                        <option value="" id="status">Select Status</option>
+                                        <option value="1">Buy</option>
+                                        <option value="0">Rent</option>
+                                    </select>
+                                    <select id="status" name="property_type">
+                                        <option value="">Select type</option>
+                                        <option value="Any">Any</option>
+                                        <option value="Duplex">Duplex</option>
+                                        <option value="Garden">Garden</option>
+                                        <option value="Highrise">Highrise</option>
+                                        <option value="House">House</option>
+                                        <option value="Lowrise">Lowrise</option>
+                                        <option value="joint">joint</option>
+                                        <option value="Luxury Highrise">Luxury Highrise</option>
+                                    </select>
+                                    <input type="text" placeholder="Features" id="feture" name="feature">
+                                    <input type="text" placeholder="Amenities" id="amenities" name="amenities">
+                                    <input type="text" placeholder="Website" id="site" name="weburl">
+                                    <button type="submit" value="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo">AESTHETICS <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form class="fltr">
+                                    <label>Architectural Detail</label>
+                                    <input type="range" id="archit" min="1" max="4" step="1" value="1">
+                                    <output for="archit"></output>
+                                    <label>Exterior</label>
+                                    <input type="range" id="exter" min="1" max="4" step="1" value="1">
+                                    <output for="exter"></output>
+                                    <label>Interior</label>
+                                    <input type="range" id="lnter" min="1" max="4" step="1" value="1">
+                                    <output for="lnter"></output>
+                                </form>
+                            </div>
+                        </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour">ARCHITECTURAL STYLE</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive">DOOMSDAY</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSix">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSix">ECOFRIENDY <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSeven">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSeven">INTERIOR DESIGN</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEight">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEight">LOCATION</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNine">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseNine">MARKET</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTen">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTen">NEARBY <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEleven">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEleven">SIZE <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwelve">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwelve">TRANSPORT <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu1" class="tab-pane fade">
+                <div class="accordion" id="myFilter">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne">Filters <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <form>
+                                    <div class="input-group mb-3">
+                                        <select class="custom-select" id="select02">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo">AESTHETICS <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour">ARCHITECTURAL STYLE</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive">DOOMSDAY</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSix">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSix">ECOFRIENDY <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSeven">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseSeven">INTERIOR DESIGN</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEight">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEight">LOCATION</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNine">
+                            <button type="button" class="accordion-button collapsed empty" data-bs-toggle="collapse"
+                                data-bs-target="#collapseNine">MARKET</button>
+                        </h2>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTen">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTen">NEARBY <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEleven">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEleven">SIZE <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwelve">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwelve">TRANSPORT <span>(0)</span></button>
+                        </h2>
+                        <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                            <div class="card-body">
+                                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="filter-btn"><i class="fas fa-caret-left"></i> </a>
+</div>
+<!--filter end-->
+
+<div class="content resident">
+    <div class="category-main">
+        {% for sts in properties %}
+        <div class="category-box act"
+            style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+            <a href="{{ sts.weburl }}" target="_blank"> <span>{{ sts.title }}</span></a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Get the search input element
+        var searchInput = $('#search-input');
+
+        // Get the initial content of the results container
+        var initialContent = $('#results-container').html();
+
+        // Handle input change event
+        searchInput.on('input', function () {
+            var searchTerm = $(this).val().trim().toLowerCase();
+
+            // Restore the initial content and hide results container if the search term is empty
+            if (searchTerm === '') {
+                $('#results-container').html(initialContent).hide();
+                return;
+            }
+
+            // Filter and display results
+            var filteredProperties = properties.filter(function (sts) {
+                return sts.title.toLowerCase().indexOf(searchTerm) !== -1;
+            });
+
+            var resultsHtml = '';
+            filteredProperties.forEach(function (sts) {
+                resultsHtml += '<div class="category-box act" style="background-image: url(' + sts.image + ')">';
+                resultsHtml += '<a href="' + sts.weburl + '"><span>' + sts.title + '</span></a>';
+                resultsHtml += '</div>';
+            });
+            $('#results-container').html(resultsHtml).show();
+        });
+    });
+</script>
+
+{% endblock %}
+
+<script>
+    const architInput = document.getElementById("archit");
+    const exterInput = document.getElementById("exter");
+    const lnterInput = document.getElementById("lnter");
+    
+    const architOutput = document.querySelector("output[for='archit']");
+    const exterOutput = document.querySelector("output[for='exter']");
+    const lnterOutput = document.querySelector("output[for='lnter']");
+    
+    const values = ["1", "2", "3"];
+    
+    architInput.addEventListener("input", updateOutput);
+    exterInput.addEventListener("input", updateOutput);
+    lnterInput.addEventListener("input", updateOutput);
+    
+    function updateOutput() {
+        const architValue = values[architInput.value - 1];
+        const exterValue = values[exterInput.value - 1];
+        const lnterValue = values[lnterInput.value - 1];
+        
+        architOutput.textContent = architValue;
+        exterOutput.textContent = exterValue;
+        lnterOutput.textContent = lnterValue;
+    }
+</script>

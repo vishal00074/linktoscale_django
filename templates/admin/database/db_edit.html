@@ -1,0 +1,378 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3 card-title">EDIT Database</div>
+                        <div class="col-md-6" align="right">
+                            <button class="btn btn-sm btn-warning">
+                                <a href="{% url 'database' %}" class="text-white"><i
+                                        class="mdi mdi-arrow-left-circle mr-2"></i>BACK</a>
+                            </button>
+                        </div>
+                    </div>
+                    <form class="editindexform" id="editForm" action="{% url 'db_update' edit.id %}" method="POST"
+                        enctype="multipart/form-data">
+                        
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Enter Name..." value="{{ edit.name }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="date_uploaded">Date Uploaded</label>
+                                    <input type="text" class="form-control" id="date_uploaded" name="date_uploaded"
+                                        placeholder="Date property Uploaded..." value="{{ edit.date_uploaded }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="date_approved">Date Approved</label>
+                                    <input type="text" class="form-control" id="date_approved" name="date_approved"
+                                        placeholder="Date property Approved" value="{{ edit.date_approved }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="number">Number</label>
+                                    <input type="number" class="form-control" id="number" name="number"
+                                        placeholder="Enter Number..." value="{{ edit.number }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="street">Street</label>
+                                    <input type="text" name="street" placeholder="Enter Street..." class="form-control" id="street"
+                                        value="{{ edit.street }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="postcode">Postcode/Pincode</label>
+                                    <input type="text" name="postcode" placeholder="Enter Postcode..." class="form-control"
+                                        id="postcode" value="{{ edit.postcode }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="city_town">City/Town</label>
+                                    <input type="text" name="city_town" placeholder="Enter city/town..."
+                                        class="form-control" id="city_town" value="{{ edit.city_town }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" name="country" placeholder="Enter Country..." class="form-control"
+                                        id="country" value="{{ edit.country }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="continent">Continent</label>
+                                    <input type="text" name="continent" placeholder="Enter Continent..."
+                                        class="form-control" id="continent" value="{{ edit.continent }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" name="city" placeholder="Enter City..."
+                                        class="form-control" id="city" value="{{ edit.city }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    {% if edit.status != '0' %}
+                                    <input type="text" name="status" placeholder="Enter Status..." class="form-control"
+                                        id="status" value="Buy" />
+                                    {% else  %}    
+                                    <input type="text" name="status" placeholder="Enter Status..." class="form-control"
+                                        id="status" value="Rent" />
+                                       
+                                    {% endif %}    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status_value"> Value</label>
+                                    <input type="text" name="status_value" placeholder="Enter Status Value..."
+                                        class="form-control" id="status_value" value=" € {{ edit.status_value }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="prop_type">Type</label>
+                                    <input type="text" name="prop_type" placeholder="Enter Type..." class="form-control"
+                                        id="prop_type" value="{{ edit.prop_type }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="features">Features</label>
+                                    <input type="text" name="features" placeholder="Enter Features..." class="form-control"
+                                        id="features" value="{{ edit.features }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exterior">Exterior</label>
+                                    <input type="number" name="exterior" placeholder="Enter Exterior..." class="form-control"
+                                        id="exterior" value="{{ edit.exterior }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="interior">Interior</label>
+                                    <input type="number" name="interior" placeholder="Enter Interior..." class="form-control"
+                                        id="interior" value="{{ edit.interior }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="energy_efficiency">Energy Efficiency</label>
+                                    <input type="number" name="energy_efficiency" placeholder="Enter Energy Efficiency..."
+                                        class="form-control" id="energy_efficiency"
+                                        value="{{ edit.energy_efficiency }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="environmental_impact">Environmental Impact</label>
+                                    <input type="number" name="environmental_impact"
+                                        placeholder="Enter Environmental Impact..." class="form-control"
+                                        id="environmental_impact" value="{{ edit.environmental_impact }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="riverside">Riverside m²</label>
+                                    <input type="number" name="riverside" placeholder="Enter Riverside..."
+                                        class="form-control" id="riverside" value="{{ edit.riverside }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="seaside">Seaside m²</label>
+                                    <input type="number" name="seaside" placeholder="Enter Seaside..." class="form-control"
+                                        id="seaside" value="{{ edit.seaside }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="bar">Bar m²</label>
+                                    <input type="number" name="bar" placeholder="Enter Bar..." class="form-control" id="bar"
+                                        value="{{ edit.bar }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="convenience_store">Convenience Store m²</label>
+                                    <input type="number" name="convenience_store" placeholder="Enter Convinience Store..."
+                                        class="form-control" id="convenience_store"
+                                        value="{{ edit.convenience_store }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fire_station">Fire Station m²</label>
+                                    <input type="number" name="fire_station" placeholder="Enter Fire Station..."
+                                        class="form-control" id="fire_station" value="{{ edit.fire_station }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gym">Gym m²</label>
+                                    <input type="number" name="gym" placeholder="Enter Gym..." class="form-control"
+                                        id="gym" value="{{ edit.gym }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="hospital">Hospital m²</label>
+                                    <input type="number" name="hospital" placeholder="Enter Hospital..." class="form-control"
+                                        id="hospital" value="{{ edit.hospital }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nursery">Nursery m²</label>
+                                    <input type="number" name="nursery" placeholder="Enter Nursery..." class="form-control"
+                                        id="nursery" value="{{ edit.nursery }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="park">Park m²</label>
+                                    <input type="number" name="park" placeholder="Enter Park..." class="form-control"
+                                        id="park" value="{{ edit.park }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="petrol_station">Petrol Station m²</label>
+                                    <input type="number" name="petrol_station" placeholder="Enter Petrol Station..."
+                                        class="form-control" id="petrol_station" value="{{ edit.petrol_station }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="police_station">Police Station m²</label>
+                                    <input type="number" name="police_station" placeholder="Enter Police Station..."
+                                        class="form-control" id="police_station" value="{{ edit.police_station }}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="restaurant">Restaurant m²</label>
+                                    <input type="number" name="restaurant" placeholder="Enter Restaurant..."
+                                        class="form-control" id="restaurant" value="{{ edit.restaurant }}" />
+                                </div>
+                            </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="school">School m²</label>
+                                <input type="number" name="school" placeholder="Enter School..."
+                                    class="form-control" id="school" value="{{ edit.school }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="super_market"> Super Market m²</label>
+                                <input type="number" name="super_market" placeholder="Enter Super Market..."
+                                    class="form-control" id="super_market" value="{{ edit.super_market }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="sort">Sort</label>
+                                <input type="number" name="sort" placeholder="Enter Sort..."
+                                    class="form-control" id="sort" value="{{ edit.sort }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="floor_area"> Floor Area</label>
+                                <input type="number" name="floor_area" placeholder="Enter Floor Area..."
+                                    class="form-control" id="floor_area" value="{{ edit.floor_area }}" />
+                            </div>
+                        </div>
+                        <!--<div class="col-md-6">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <label for="floor_area"> Floor Area  </label>-->
+                        <!--        <input type="number" name="floor_area" placeholder="Enter Floor Area..."-->
+                        <!--            class="form-control" id="floor_area1" value="{{ properties_data.sqf }}" />-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="site_area"> Site Area </label>
+                                <input type="number" name="site_area" placeholder="Enter Site Area..."
+                                    class="form-control" id="site_area" value="{{ edit.site_area }}" />
+                            </div>
+                        </div>
+                        <!--<div class="col-md-6">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <label for="site_area">Site Area </label>-->
+                        <!--        <input type="number" name="site_area" placeholder="Enter Site Area..."-->
+                        <!--            class="form-control" id="site_area1" value="{{ properties_data.mts }}" />-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kitchen">Kitchen m²</label>
+                                <input type="number" name="kitchen" placeholder="Enter Kitchen..."
+                                    class="form-control" id="kitchen" value="{{ edit.kitchen }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="living_room">Living Room m²</label>
+                                <input type="number" name="living_room" placeholder="Enter Living Room..."
+                                    class="form-control" id="living_room" value="{{ edit.living_room }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bedroom1">Bedroom1 m²</label>
+                                <input type="number" name="bedroom1" placeholder="Enter Bedroom1..."
+                                    class="form-control" id="bedroom1" value="{{ edit.bedroom1 }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bedroom2">Bedroom2 m²</label>
+                                <input type="number" name="bedroom2" placeholder="Enter Bedroom2..."
+                                    class="form-control" id="bedroom2" value="{{ edit.bedroom2 }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bedroom3">Bedroom3 m²</label>
+                                <input type="number" name="bedroom3" placeholder="Enter Bedroom3..."
+                                    class="form-control" id="bedroom3" value="{{ edit.bedroom3 }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="airport">Airport m²</label>
+                                <input type="number" name="airport" placeholder="Enter Airport..."
+                                    class="form-control" id="airport" value="{{ edit.airport }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bus_stop">Bus Stop m²</label>
+                                <input type="number" name="bus_stop" placeholder="Enter Bus Stop..."
+                                    class="form-control" id="bus_stop" value="{{ edit.bus_stop }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="train_station">Train Station m²</label>
+                                <input type="number" name="train_station" placeholder="Enter Train Station..."
+                                    class="form-control" id="train_station" value="{{ edit.train_station }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="underground_station">Underground Station m²</label>
+                                <input type="number" name="underground_station" placeholder="Enter Underground Station..."
+                                    class="form-control" id="underground_station" value="{{ edit.underground_station }}" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-sm btn-primary mr-2"><i
+                                        class="mdi mdi mdi-near-me mr-2"></i>Submit</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </form>                     
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+
+
+{% endblock %}

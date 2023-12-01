@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="20px">
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Property ID</th>
+                <th>Name</th>
+                <th>Seaside in Km</th>
+                <th>Sea Percentile</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            
+
+            {% for sin in allPrperties %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ sin.property_id }}</td>
+                <td>{{ sin.name }}</td>
+                <td>{{ sin.seaside }}</td>
+                <td></td> 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

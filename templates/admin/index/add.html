@@ -1,0 +1,78 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3 card-title">ADD INDEX</div>
+                        <div class="col-md-6" align="right">
+                            <button class="btn btn-sm btn-warning">
+                                <a href="{% url 'admin_index' %}" class="text-white"><i class="mdi mdi-arrow-left-circle mr-2"></i>BACK</a>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <form class="addIndexForm" method="POST" action="{% url 'admin_index_add' %}" enctype="multipart/form-data">
+                        {% if context.success %}
+                        <ul class="messages alert alert-success">
+                            <li>{{ context.success }}</li>
+                        </ul>
+                        {% endif %}
+                        
+                        {% if context.error %}
+                        <ul class="messages alert alert-danger">
+                            <li>{{ context.error }}</li>
+                        </ul>
+                        {% endif %}
+                        
+                        
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="enter name"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">  
+                                        <div class="form-group">
+                                            <label for="active">Status</label>
+                                            <select name="active" class="form-control" id="active">
+                                                <option value="">Select</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                                <option value="2">Coming Soon</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="image">File upload</label>
+                                            <input type="file" name="image" class="form-control" id="image"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="mdi mdi mdi-near-me mr-2"></i>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="/static/admin/assets/scripts/index.js"></script>
+{% endblock %}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>LinkToScale</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+
+
+body#sign-up-form{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+body#sign-up-form .container {
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: space-between;}
+
+body#sign-up-form .container .form {
+    width: 100%;
+    background: #ffffff !important;
+    border-radius: 5px;
+    box-shadow: 0px 3px 14px #c7c2c2;
+    border: 1px solid rgb(0 0 0 / 15%);
+    transition: 0.5s;
+    max-width: 90%;
+}
+
+body#sign-up-form .container form .btn.btn-success {
+                width: 100%;
+                background: #0093ff;
+                border-radius: 4px;
+                margin-top: 12px;
+                font-weight: 600;
+                font-size: 16px;
+                text-transform: uppercase;
+                height: 48px;
+                border-color: #0093ff;
+                transition: 0.5s;}
+	
+	
+body#sign-up-form .container form .btn.btn-success:hover {
+    background: #000;
+    border-color: #000;
+    transition: 0.5s;
+}
+.container .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+.container .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    right: 0;
+    margin: auto;
+}
+.bg-blue {
+    background: #ebf7ff;
+    border-radius: 5px 0 0 5px;
+}
+</style>
+	 </head>
+
+<body id="sign-up-form" style="background-image:url('/static/admin-lte/images/Cubic-World.jpg');">
+  <div class="container">
+<div class="row form m-auto bg-white">
+<div class="col-sm-6 bg-blue">
+<div class="imgcontainer text-center m-5">
+      <img src="/static/admin-lte/images/link_mainlogo.png" alt="Avatar">
+    </div>
+	
+	<img src="/static/admin-lte/images/registration.webp" width="100%" alt="img">
+	
+	</div>
+<div class="col-sm-6"><form action="{% url 'email_registration' %}" method="post" class="px-3 py-5">
+        {% csrf_token %}
+		<div class="title mb-4 text-center">Registration</div>
+        <div class="user-details">
+		<div class="row">
+          <div class="form-group col-sm-6">
+            <span class="details">First Name</span>
+            <input type="text" name="first_name" class="form-control" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group col-sm-6">
+            <span class="details">Last Name</span>
+            <input type="text" name="last_name" class="form-control" placeholder="Enter your username" required>
+          </div>
+		  </div>
+		  <div class="row">
+          <div class="form-group col-sm-6">
+            <span class="details">User Name</span>
+            <input type="text" name="username" class="form-control" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group col-sm-6">
+            <span class="details">Email</span>
+            <input type="text"  name="email" class="form-control" placeholder="Enter your email" required>
+          </div></div>
+         <div class="row">
+          <div class="form-group col-sm-6">
+            <span class="details">Password</span>
+            <input type="password"  name="password1" class="form-control" placeholder="Enter your password" required>
+          </div>
+          <div class="form-group col-sm-6">
+            <span class="details">Confirm Password</span>
+            <input type="password"  name="password2"  class="form-control" placeholder="Confirm your password" required>
+          </div>
+		  </div>
+        </div>
+		<div class="row">
+     <div class="form-group col-sm-12">
+        <input type="submit" class="btn btn-success btn-lg" value="Register">
+        </div></div>
+      </form></div>
+
+  </div>
+  
+    
+   
+  </div>
+
+</body>
+</html>

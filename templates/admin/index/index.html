@@ -1,0 +1,81 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3">Topics</div>
+                        {% if is_superuser %}
+                        <div class="col-md-6" align="right">
+                            <button class="btn btn-sm btn-warning btn-add">
+                                <a href="{% url 'admin_index_add' %}" class="text-white"><i
+                                        class="mdi mdi-plus-circle mr-2"></i>ADD</a>
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    {% if is_superuser %}
+                                    <th>Action</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sin in st %}
+                                <tr>
+                                    <td>{{ sin.name }}</td>
+                                    <td><img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ sin.image }}"
+                                            height="120px" width="120px" alt="no image" /></td>
+
+                                    <td>{{ sin.cat_count }}</td> 
+                                    
+                                    <td>
+                                        {% if sin.active == '0' %}
+                                        <span class="btn btn-danger">Inactive</span>
+                                        {% elif sin.active == '1' %}
+                                        <span class="btn btn-success">Active</span>
+                                        {% elif sin.active == '2' %}
+                                        <span class="btn btn-info">Coming Soon</span>
+                                        {% endif %}
+                                    </td>
+                                    {% if is_superuser %}
+                                    <td>
+                                        <a href="{% url 'admin_index_edit' sin.id %}"
+                                            class="btn btn-sm btn-success edit-btn">Edit</a>
+                                        <a href="{% url 'admin_category' sin.id %}"
+                                            class="btn btn-sm btn-warning edit-btn">Category</a>
+
+                                        <a href="javascript:void({{ sin.id }})" data-id="{{ sin.id }}"
+                                            class="delete-index btn btn-sm btn-success dlt-btn">Delete</a>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/assets/scripts/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    var csrfToken = "{{ csrf_token }}";
+</script>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3 card-title">Add User</div>
+                        <div class="col-md-6" align="right">
+                            <button class="btn btn-sm btn-warning">
+                                <a href="" class="text-white"><i class="mdi mdi-arrow-left-circle mr-2"></i>BACK</a>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <form  action="{%  url 'ajax-adduser' %}" method="POST" enctype="multipart/form-data">
+                        {% if context.success %}
+                        <ul class="messages alert alert-success">
+                            <li>{{ context.success }}</li>
+                        </ul>
+                        {% endif %}
+                        
+                        {% if context.error %}
+                        <ul class="messages alert alert-danger">
+                            <li>{{ context.error }}</li>
+                        </ul>
+                        {% endif %}
+                        
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">First Name</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name" value=""/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" value=""/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">  
+                                <div class="form-group">
+                                    <label for="image">Email</label>
+                                    <input type="text" name="email" class="form-control" id="email" placeholder="email"  value="" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="image">User Name</label>
+                                    <input type="text" name="username" class="form-control" id="username" placeholder="User name" value="" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="image">Password</label>
+                                    <input type="password"  name="password1" class="form-control" id="password1"  value="" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="image">Confirm Password</label>
+                                    <input type="password"  name="password2" class="form-control" id="password2"  value="" />
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-sm btn-primary mr-2" id="btnClick"><i class="mdi mdi mdi-near-me mr-2"></i>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    $(".uploadForm").submit(function(e){
+      e.preventDefault();
+      $("#btnClick").prop('disabled', true);
+      $("#btnClick").text('Processing...');
+      var $form = $(this);
+      var serializedData = $form.serialize();
+      var $res_message = $(".resmessage");
+      $res_message.hide();
+      $.ajax({
+          url: '/ajax-adduser',
+          type: "POST",
+          data: serializedData,
+          dataType: 'json',
+          success: function (data) {
+
+            if (data.error) {
+                  $res_message.text(data.msg);
+                  $res_message.show();
+                  $("#btnClick").prop('disabled', false);
+                  $("#btnClick").text('Submit');
+            }else{
+              $res_message.removeClass("alert-danger");
+              $res_message.addClass("alert-success");
+              $res_message.text(data.msg);
+              $res_message.show();
+              $("#btnClick").prop('disabled', false);
+              $("#btnClick").text('Submit');
+            }
+          }
+        });
+    });
+  });
+  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="/static/admin/assets/scripts/index.js"></script>
+
+{% endblock %}

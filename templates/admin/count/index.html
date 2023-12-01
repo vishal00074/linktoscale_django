@@ -1,0 +1,303 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3">Indexes({{approved_count}}/{{ properties.count }})</div>
+                        <div class="col-md-6" align="right">
+                            <!-- <button class="btn btn-sm btn-warning btn-add">
+                                <a href="" class="text-white"><i class="mdi mdi-plus-circle mr-2"></i>ADD</a>
+                            </button> -->
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mt-3">
+                        <table class="table table-fixed">
+                            <thead class="table-dark ">
+                                <tr>
+                                    <th colspan="5" class="text-center">Background Info</th>
+                                    <th colspan="7" class="text-center">Filters</th>
+                                    <th colspan="7" class="text-center">Features</th>
+                                    <th colspan="17" class="text-center">Amenities</th>
+                                    <th colspan="4" class="text-center">Aesthetic</th>
+                                    <th colspan="4" class="text-center">Ecofriendly</th>
+                                    <th colspan="28" class="text-center">Nearby</th>
+                                    <th colspan="14" class="text-center">Size</th>
+                                    <th colspan="8" class="text-center">Transport</th>
+                                    <th colspan="1" class="text-center">Links</th>
+                                </tr>
+                                <tr>
+                                    <th>S.no</th>
+                                    <th>Property ID</th>
+                                    <th>Name</th>
+                                    <th>Number</th>
+                                    <th>Street</th>
+                                    <th>Postcode/Pincode</th>
+
+                                    <th>Date Uploded</th>
+                                    <th>Date Approved</th>
+                                    <th>City/Town</th>
+                                    <th>Country</th>
+                                    <th>Continent</th>
+                                    <th>Status</th>
+                                    <th>Status Value</th>
+
+                                    <!-- <th>Type</th> -->
+                                    <!-- <th>Features</th> -->
+
+                                    <th>Living Room</th>
+                                    <th>Studio</th>
+                                    <th>Kitchen</th>
+                                    <th>Garage</th>
+                                    <th>Garden</th>
+                                    <th>Balcony</th>
+                                    <th>En Suite</th>
+
+                                    <!-- <th>Amenities</th> -->
+                                    <th>Parking Facilities</th>
+                                    <th>Playground</th>
+                                    <th>Swimming Pool</th>
+                                    <th>Laundry Facilities</th>
+                                    <th>Gym</th>
+                                    <th>Air Conditioning</th>
+                                    <th>Security Cameras</th>
+                                    <th>Private Patio</th>
+                                    <th>Outdoor Furniture</th>
+                                    <th>Outdoor Dining Area</th>
+                                    <th>Smoke Alarm</th>
+                                    <th>Carbon Monoxide Alarm</th>
+                                    <th>Fire Extinguisher</th>
+                                    <th>First Aid Kit</th>
+                                    <th>Mountain View</th>
+                                    <th>Valley View</th>
+                                    <th>Heating</th>
+
+
+                                    <th>Exterior Percentile</th>
+                                    <th>Exterior Count</th>
+                                    <th>Interior Percentile</th>
+                                    <th>Interior Count</th>
+
+
+                                    <th>Energy Efficiency Percentile</th>
+                                    <th>Energy Efficiency Count</th>
+                                    <th>Environmental Percentile</th>
+                                    <th>Environmental Count</th>
+
+
+                                    <th>Riverside Percentile</th>
+                                    <th>Riverside Count</th>
+                                    <th>Seaside Percentile</th>
+                                    <th>Seaside Count</th>
+                                    <th>Bar Percentile</th>
+                                    <th>Bar Count</th>
+                                    <th>Convinience Store Percentile</th>
+                                    <th>Convinience Store Count</th>
+                                    <th>Fire Station Percentile</th>
+                                    <th>Fire Station Count</th>
+                                    <th>Gym Percentile</th>
+                                    <th>Gym Count</th>
+                                    <th>Hospital Percentile</th>
+                                    <th>Hospital Count</th>
+                                    <th>Nursery  Percentile</th>
+                                    <th>Nursery Count</th>
+                                    <th>Park Percentile</th>
+                                    <th>Park Count</th>
+                                    <th>Petrol Station Percentile</th>
+                                    <th>Petrol Station Count</th>
+                                    <th>Police Station Percentile</th>
+                                    <th>Police Station Count</th>
+                                    <th>Restaurant Percentile</th>
+                                    <th>Restaurant Count</th>
+                                    <th>School Percentile</th>
+                                    <th>School Count</th>
+                                    <th>Super Market Percentile</th>
+                                    <th>Super Market Count</th>
+
+
+                                    <th>Floor Area Percentile</th>
+                                    <th>Floor Area Count</th>
+                                    <th>Site Area Percentile</th>
+                                    <th>Site Area Count</th>
+                                    <th>Kitchen Percentile</th>
+                                    <th>Kitchen Count</th>
+                                    <th>Living Room Percentile</th>
+                                    <th>Living Room Count</th>
+                                    <th>Bedroom 1 Percentile</th>
+                                    <th>Bedroom 1 Count</th>
+                                    <th>Bedroom 2 Percentile</th>
+                                    <th>Bedroom 2 Count</th>
+                                    <th>Bedroom 3 Percentile</th>
+                                    <th>Bedroom 3 Count</th>
+
+
+                                    <th>Airport Percentile</th>
+                                    <th>Airport Count</th>
+                                    <th>Bus Stop Percentile</th>
+                                    <th>Bus Stop Count</th>
+                                    <th>Train Station Percentile</th>
+                                    <th>Train Station Count</th>
+                                    <th>Underground Station Percentile</th>
+                                    <th>Underground Station Count</th>
+                                    <!-- <th>Sort</th> -->
+                                    <!-- <th>Action</th> -->
+                                    <th >Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sin in dbproperties %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ sin.property_id }}</td>
+                                    <td>{{ sin.name }}</td>
+                                    <td>{{sin.number}}</td>
+                                    <td>{{sin.street}}</td>
+                                    <td>{{sin.postcode}}</td>
+
+                                    <td>{{sin.date_uploaded}}</td>
+                                    <td>{{sin.date_approved}}</td>
+                                    <td>{{sin.city_town}}</td>
+                                    <td>{{sin.country}}</td>
+                                    <td>{{sin.continent }}</td>
+                                    {% if sin.status != '0' %}
+                                    <td>Buy</td>
+                                    {% else %}
+                                    <td>Rent</td>
+                                    {% endif %}
+                                    <td>€{{sin.status_value}}</td>
+                                    <!-- <td>{{sin.prop_type}}</td> -->
+                                    <!-- <td>{{sin.features}}</td> -->
+                                    <td>{{sin.Living_Room}}</td>
+                                    <td>{{sin.Studio}}</td>
+                                    <td>{{sin.Kitchen}}</td>
+                                    <td>{{sin.Garage}}</td>
+                                    <td>{{sin.Garden}}</td>
+                                    <td>{{sin.Balcony}}</td>
+                                    <td>{{sin.En_suite}}</td>
+                                    <!-- <td>{{sin.amenities}}</td> -->
+                                    <td>{{sin.Parking_facilities}}</td>
+                                    <td>{{sin.Playground}}</td>
+                                    <td>{{sin.Swimming_pool}}</td>
+                                    <td>{{sin.Laundry_facilities}}</td>
+                                    <td>{{sin.Gym}}</td>
+                                    <td>{{sin.Air_conditioning}}</td>
+                                    <td>{{sin.Security_cameras}}</td>
+                                    <td>{{sin.Private_patio}}</td>
+                                    <td>{{sin.Outdoor_furniture}}</td>
+                                    <td>{{sin.Outdoor_dining_area}}</td>
+                                    <td>{{sin.Smoke_alarm}}</td>
+                                    <td>{{sin.Carbon_monoxide_alarm}}</td>
+                                    <td>{{sin.Fire_extinguisher}}</td>
+                                    <td>{{sin.First_aid_kit}}</td>
+                                    <td>{{sin.Mountain_view}}</td>
+                                    <td>{{sin.Valley_view}}</td>
+                                    <td>{{sin.Heating}}</td>
+                                    <td>{{sin.exterior_percentile}}</td>
+                                    <td>{{sin.ext_count}}</td>
+                                    <td>{{sin.interior_percentile}}</td>
+                                    <td>{{sin.int_count}}</td>
+                                    <td>{{sin.energy_percentile}}</td>
+                                    <td>{{sin.energy_count}}</td>
+                                    <td>{{sin.env_percentile}}</td>
+                                    <td>{{sin.env_count}}</td>
+                                    <td>{{sin.river_percentile}}</td>
+                                    <td>{{sin.riverside_count}}</td>
+                                    <td>{{sin.seapercentile}}</td>
+                                    <td>{{sin.sea_count}}</td>
+                                    <td>{{sin.bar_percentile}}</td>
+                                    <td>{{sin.bar_count}}</td>
+                                    <td>{{sin.converience_percentile}}</td>
+                                    <td>{{sin.conver_count}}</td>
+                                    <td>{{sin.fire_percentile}}</td>
+                                    <td>{{sin.fire_count}}</td>
+                                    <td>{{sin.gym_percentile}}</td>
+                                    <td>{{sin.gym_count}}</td>
+                                    <td>{{sin.hospital_percentile}}</td>
+                                    <td>{{sin.hospital_count}}</td>
+                                    <td>{{sin.nursery_percentile}}</td>
+                                    <td>{{sin.nursery_count}}</td>
+                                    <td>{{sin.park_percentile}}</td>
+                                    <td>{{sin.park_count}}</td>
+                                    <td>{{sin.petrol_percentile}}</td>
+                                    <td>{{sin.petrol_count}}</td>
+                                    <td>{{sin.police_percentile}}</td>
+                                    <td>{{sin.police_count}}</td>
+                                    <td>{{sin.restaurant_percentile}}</td>
+                                    <td>{{sin.resturant_count}}</td>
+                                    <td>{{sin.school_percentile}}</td>
+                                    <td>{{sin.school_count}}</td>
+                                    <td>{{sin.market_percentile}}</td>
+                                    <td>{{sin.market_count}}</td>
+                                    <td>{{sin.floor_percentile}}</td>
+                                    <td>{{sin.floor_count}}</td>
+                                    <td>{{sin.site_percentile}}</td>
+                                    <td>{{sin.site_count}}</td>
+                                    <td>{{sin.kitchen_percentile}}</td>
+                                    <td>{{sin.kitchen_count}}</td>
+                                    <td>{{sin.living_percentile}}</td>
+                                    <td>{{sin.living_count}}</td>
+                                    <td>{{sin.bedroom1_percentile}}</td>
+                                    <td>{{sin.bedroom1_count}}</td>
+                                    <td>{{sin.bedroom2_percentile}}</td>
+                                    <td>{{sin.bedroom2_count}}</td>
+                                    <td>{{sin.bedroom3_percentile}}</td>
+                                    <td>{{sin.bedroom3_count}}</td>
+                                    <td>{{sin.airport_percentile}}</td>
+                                    <td>{{sin.airport_count}}</td>
+                                    <td>{{sin.bus_stop_percentile}}</td>
+                                    <td>{{sin.bus_count}}</td>
+                                    <td>{{sin.train_station_percentile}}</td>
+                                    <td>{{sin.train_count}}</td>
+                                    <td>{{sin.underground_station_percentile}}</td>
+                                    <td>{{sin.under_count}}</td>
+                                  
+                                    <td><a href="{{ sin.link }}" target="_blank" class="btn btn-success">View</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                        <div class="pagination pt-4 justify-content-end">
+                            <span class="step-links">
+                                {% if modified_properties.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ modified_properties.previous_page_number }}">previous</a>
+                                {% endif %}
+
+                                <span class="current-page">{{ modified_properties.number }}</span>
+
+                                {% if modified_properties.has_next %}
+                                <a href="?page={{ modified_properties.next_page_number }}">next</a>
+                                <a href="?page={{ modified_properties.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/assets/scripts/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+<script>
+    var csrfToken = "{{ csrf_token }}";
+
+</script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3 card-title">EDIT Ratings</div>
+                        <div class="col-md-6" align="right">
+                            <button class="btn btn-sm btn-warning">
+                                <a href="{% url 'rating' %}" class="text-white"><i
+                                        class="mdi mdi-arrow-left-circle mr-2"></i>BACK</a>
+                            </button>
+                        </div>
+                    </div>
+
+                    <form class="editindexform" method="POST" action="{% url 'add_new_rating' %}"
+                        enctype="multipart/form-data">
+                        {% if messages.success %}
+                        <ul class="messages alert alert-success">
+                            <li>{{ messages.success }}</li>
+                        </ul>
+                        {% endif %}
+
+                        {% if messages.error %}
+                        <ul class="messages alert alert-danger">
+                            <li>{{ messages.error }}</li>
+                        </ul>
+                        {% endif %}
+
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="property_select">Property Name</label>
+                                    <select class="form-control" id="property_select" name="property_id">
+                                        <option value="">Select</option>
+                                        {% for sin in rating %}
+                                        <option value="{{ sin.property_id }}">{{ sin.property_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="rating_type">View Property</label>
+                                    <div class="d-flex">
+                                        <a href="" id="view_property_link" target="_blank" class="btn btn-success">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Interior Rating</label>
+                                    <input type="text" class="form-control" id="name" name="interior"
+                                        placeholder="interior" value="" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exterior">Exterior Rating</label>
+                                    <input type="text" class="form-control" id="date_added" name="exterior"
+                                        placeholder="exterior" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-sm btn-primary mr-2"><i
+                                        class="mdi mdi mdi-near-me mr-2"></i>Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="/static/admin/assets/scripts/index.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const propertySelect = document.getElementById("property_select");
+        const viewPropertyLink = document.getElementById("view_property_link");
+
+        propertySelect.addEventListener("change", function () {
+           
+            const selectedValue = propertySelect.value;
+
+           
+            const url = "{% url 'property_view' %}" + '?' +"property_id=" +selectedValue;
+
+            // Update the href attribute of the link
+            viewPropertyLink.href = url;
+        });
+    });
+</script>
+{% endblock %}

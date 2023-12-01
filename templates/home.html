@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="category-main">
+    {% for sts in st %}
+    {% if sts.active == "1" %}
+    <div class="category-box act"
+        style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+        <a href="{% url 'category' sts.id %}"><span>{{ sts.name }}</span></a>
+    </div>
+    {% elif sts.active == "0" %}
+    <div class="category-box"
+        style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+        <a>Inactive<span>{{ sts.name }}</span></a>
+    </div>
+    {% elif sts.active == "2" %}
+    <div class="category-box"
+        style="background-image: url({{ request.scheme }}://{{ request.get_host }}/media/{{ sts.image }})">
+        <a>Coming Soon<span>{{ sts.name }}</span></a>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<!-- <div class="category-box" style="background-image: url(/static/images/car1.jpg)">
+            <a href="{% url 'vehicles' %}">Coming Soon<span>Vehicles</span></a></div>
+
+            <div class="category-box" style="background-image: url(/static/images/food.jpg)">
+            <a>Coming Soon<span>Food</span></a></div>
+
+            <div class="category-box" style="background-image: url(/static/images/fitness.jpg)">
+            <a>Coming Soon<span>Fitness</span></a></div>
+
+            <div class="category-box" style="background-image: url(/static/images/tv.jpg)">
+            <a>Coming Soon<span>Movies & TV</span></a></div>
+
+            <div class="category-box" style="background-image: url(/static/images/location.jpg)">
+            <a>Coming Soon<span>Locations</span></a></div>
+
+            <div class="category-box" style="background-image: url(/static/images/fashion.jpg)">
+            <a>Coming Soon<span>Fashion</span></a></div>
+
+            <div class="category-box" style="background-image: url(/static/images/books.jpg);">
+            <a href="{% url 'sub-category' %}">Coming Soon<span>Books</span></a></div> -->
+</div>
+{% endblock %}

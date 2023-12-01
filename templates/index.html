@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+    {% include 'layouts/head.html' %}
+</head>
+
+<body class="link-scale filter-page">
+    <div class="overlay"></div>
+    <!--header area start-->
+    <header>
+        <div class="humburg">
+            <i class="fas fa-bars" id="sidebar_btn"></i> <span>Residential</span>
+        </div>
+        <div class="left_area">
+            <img src="{% static 'images/link_mainlogo.png' %}" alt="Your Logo" /></a>
+           <!-- <h6 style="color: red;align-items: right;font-weight: bold;" align="right">Beta</h6>-->
+        </div>
+    </header>
+    <!--header area end-->
+
+    <!--sidebar start-->
+    <div class="sidebar">
+        {% include 'layouts/sidebar.html' %}
+    </div>
+    <!--sidebar end-->
+
+    <div class="content"> 
+        {% block content %}
+        <!-- Dynamic content -->
+        {% endblock %}
+    </div>
+</body>
+{% block script %}
+
+{% endblock %}
+
+</html>

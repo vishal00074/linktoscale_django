@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>The Element Object</h1>
+<h2>The cloneNode() Method</h2>
+
+<button onclick="myFunction()">Copy</button>
+<p>Click "Copy" to copy an item from one list to another.</p>
+
+<ul id="myList1"><li>Coffee</li><li>Tea</li></ul>
+<ul id="myList2"><li>Name</li><form action=""><input type="text" id="name" name="name[]">
+<input type="submit" value="submit">
+</form> </ul>
+
+<p>If you change the <b>deep</b> parameter to false, only an empty LI element will be cloned.</p>
+
+<script>
+function myFunction() {
+  const node = document.getElementById("name");
+  const clone = node.cloneNode(true);
+  document.getElementById("myList1").appendChild(clone);
+}
+</script>
+
+</body>
+</html>

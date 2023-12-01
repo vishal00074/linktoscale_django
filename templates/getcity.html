@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City List</title>
+</head>
+<body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Assuming you have a select element in your HTML with the id 'citySelect'
+        var citySelect = document.getElementById('citySelect');
+
+        // Assuming you have a select element with the id 'countryInput'
+        var countryInput = document.getElementById('country');
+
+        
+
+        countryInput.addEventListener('change', function () {
+            // Get the selected country
+            var countryName = countryInput.value;
+
+            // Make an AJAX request to your Django backend
+            fetch(`/get_cities_by_country/?country_name=${countryName}`)
+                .then(response => response.json())
+                .then(data => {
+                    if ('city_list' in data) {
+                        // Clear the select element
+                        citySelect.innerHTML = '';
+
+                        // Populate the select element with the cities
+                        data.city_list.forEach(city => {
+                            var option = document.createElement('option');
+                            option.value = city.cityname;
+                            option.textContent = city.cityname;
+                            citySelect.appendChild(option);
+                        });
+                    } else {
+                        console.error(data.message || 'Unknown error');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+
+<!-- Assuming you want to display the list of cities in a select element -->
+<select id="citySelect" name="city"></select>
+
+<!-- Assuming you have a select element for the country name -->
+<select id="country">
+    <option value="India">India</option>
+    <option value="United Kingdom">United Kingdom</option>
+</select>
+
+
+
+</body>
+</html>
+

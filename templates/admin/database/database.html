@@ -1,0 +1,314 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3">Database({{approved_count}}/{{ properties.count }})</div>
+                        <div class="col-md-6" align="right">
+                            <!-- <button class="btn btn-sm btn-warning btn-add">
+                                <a href="" class="text-white"><i class="mdi mdi-plus-circle mr-2"></i>ADD</a>
+                            </button> -->
+                           
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mt-3">
+                        <table id="database" class="table">
+                            <thead class="table-dark ">
+                                <tr>
+                                    <!-- <th>Name</th> -->
+                                    <th colspan="16" class="text-center">Filters</th>
+                                    <th colspan="2" class="text-center">Aesthetic</th>
+                                    <th colspan="2" class="text-center">Ecofriendly</th>
+                                    <th colspan="2" class="text-center">Location</th>
+                                    <th colspan="12" class="text-center">Nearby</th>
+                                    <th colspan="7" class="text-center">Size</th>
+                                    <th colspan="5" class="text-center">Transport</th>
+                                    <th colspan="2" class="text-center">Modification</th>
+                                </tr>
+                                <tr>
+                                    <th >PropertyID</th>
+
+                                    <th >Name</th>
+                                    <th >Date Uploded</th>
+                                    <th >Date Approved</th>
+                                    <th >Exprired Date</th>
+                                    <th >Duration </th>
+                                    <th >Delete Action</th>
+                                    <th >Number</th>
+                                    <th >Street</th>
+                                    <th >Postcode/Pincode</th>
+                                    <th >City/Town</th>
+                                    <th >Country</th>
+                                    <th >Continent</th>
+                                    <th >Status</th>
+                                    <th >Status Value</th>
+                                    <th >Type</th>
+                                    <th >Features</th>
+                                    <th >Exterior</th>
+                                    <th >Interior</th>
+                                    <th >Energy Efficiency</th>
+                                    <th >Environmental Impact</th>
+                                    <th >Riverside</th>
+                                    <th >Seaside</th>
+                                    <th >Bar</th>
+                                    <th >Convinience Store</th>
+                                    <th >Fire Station</th>
+                                    <th >Gym</th>
+                                    <th >Hospital</th>
+                                    <th >Nursery</th>
+                                    <th >Park</th>
+                                    <th >Petrol Station</th>
+                                    <th >Police Station</th>
+                                    <th >Restaurant</th>
+                                    <th >School</th>
+                                    <th >Super Market</th>
+                                    <th >Floor Area</th>
+                                    <th >Site Area</th>
+                                    <th >Kitchen</th>
+                                    <th >Living Room</th>
+                                    <th >Bedroom 1</th>
+                                    <th >Bedroom 2</th>
+                                    <th >Bedroom 3</th>
+                                    <th >Airport</th>
+                                    <th >Bus Stop</th>
+                                    <th >Train Station</th>
+                                    <th >Underground Station</th>
+                                   
+                                    <th >Action</th>
+                                    <th >link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- {% for sin in properties_data %}
+                                <tr>
+                                    <td>{{ sin.name }}</td>
+                                    <td>{{sin.date_uploaded}}</td>
+                                    <td>{{sin.date_approved}}</td>
+                                    <td>{{sin.number}}</td>
+                                    <td>{{sin.street}}</td>
+                                    <td>{{sin.postcode}}</td>
+                                    <td>{{sin.city_town}}</td>
+                                    <td>{{sin.country}}</td>
+                                    <td>{{sin.continent}}</td>
+                                    {% if sin.status != '0' %}
+                                    <td>Buy</td>
+
+
+                                    
+                                    {% else %}
+                                    <td>Rent</td>
+                                    {% endif %}
+                                    <td>€{{sin.status_value}}</td>
+                                    <td>{{sin.prop_type}}</td>
+                                    <td>{{sin.features}}</td>
+                                    <td>{{sin.exterior}}</td>
+                                    <td>{{sin.interior}}</td>
+                                    <td>{{sin.energy_efficiency}}</td>
+                                    <td>{{sin.environmental_impact}}</td>
+                                    <td>{{sin.riverside}}</td>
+                                    <td>{{sin.seaside}}</td>
+                                    <td>{{sin.bar}}</td>
+                                    <td>{{sin.convenience_store}}</td>
+                                    <td>{{sin.fire_station}}</td>
+                                    <td>{{sin.gym}}</td>
+                                    <td>{{sin.hospital}}</td>
+                                    <td>{{sin.nursery}}</td>
+                                    <td>{{sin.park}}</td>
+                                    <td>{{sin.petrol_station}}</td>
+                                    <td>{{sin.police_station}}</td>
+                                    <td>{{sin.restaurant}}</td>
+                                    <td>{{sin.school}}</td>
+                                    <td>{{sin.super_market}}</td>
+                                    <td>{{sin.floor_area}}</td>
+                                    <td>{{sin.site_area}}</td>
+                                    <td>{{sin.kitchen}}</td>
+                                    <td>{{sin.living_room}}</td>
+                                    <td>{{sin.bedroom1}}</td>
+                                    <td>{{sin.bedroom2}}</td>
+                                    <td>{{sin.bedroom3}}</td>
+                                    <td>{{sin.airport}}</td>
+                                    <td>{{sin.bus_stop}}</td>
+                                    <td>{{sin.train_station}}</td>
+                                    <td>{{sin.underground_station}}</td>
+                                    <td>{{sin.sort}}</td>                                  
+                                    <td><a href="{% url 'db_edit' sin.property_id %}"
+                                        class="btn btn-sm btn-success edit-btn">Edit</a></td>
+                                    <td><a href="{{ sin.link }}" target="_blank" class="btn btn-success">View</a></td>
+                                </tr>
+                                {% endfor %} -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                        <div class="pagination pt-4 justify-content-end">
+                            <span class="step-links">
+                                {% if properties_data.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ properties_data.previous_page_number }}">previous</a>
+                                {% endif %}
+
+                                <span class="current-page">{{ properties_data.number }}</span>
+
+                                {% if properties_data.has_next %}
+                                <a href="?page={{ properties_data.next_page_number }}">next</a>
+                                <a href="?page={{ properties_data.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/assets/scripts/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    var csrfToken = "{{ csrf_token }}";
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#database').DataTable({
+       
+            
+            "ajax": {
+                "url": "{% url 'database' %}",
+                "dataSrc": "data",
+            },
+            'columns': [
+                {'data': 'property_id',  "searchable": true, orderable:true},
+                
+                {'data': 'name', "searchable": true },
+                {'data': 'date_uploaded'},
+                {'data': 'date_approved'},
+                {'data': 'expired_date'},
+                {'data': 'duration'},
+                {'data': null,
+                    'render': function(data, type, row) {
+                        var deleteUrl = row.property_id ? '/admin/delete_property/' + row.property_id + '/' : '#';
+                        return '<a href="' + deleteUrl + '" class="btn btn-danger">Delete</a>';
+                    },orderable:false,serachable:false
+                },
+                {'data': 'number'},
+                {'data': 'street'},
+                {'data': 'postcode'},
+                {'data': 'city_town'},
+                {'data': 'country'},
+                {'data': 'continent'},
+                {
+            data: 'status',
+            render: function (data, type, row) {
+                        if (data === '0') {
+                        
+                            return '<span class="badge badge-primary">Rent</span>';
+                        } else if (data === '1'){
+                        
+                            return '<span class="badge badge-success">Buy</span>';
+                        }else if (data === '2'){
+                            return '<span class="badge badge-info">Auction</span>';
+                        }else if (data === '3'){
+                            return '<span class="badge badge-warning">Stay</span>';
+                        }else if (data === '4'){
+                            return '<span class="badge badge-dark">Featured</span>';
+                    }
+                }
+                },
+                {'data': 'status_value'},
+                {'data': 'prop_type'},
+                {'data': 'features'},
+                {'data': 'exterior'},
+                {'data': 'interior'},
+                {'data': 'energy_efficiency'},
+                {'data': 'environmental_impact'},
+                {'data': 'riverside'},
+                {'data': 'seaside'},
+                {'data': 'bar'},
+                {'data': 'convenience_store'},
+                {'data': 'fire_station'},
+                {'data': 'gym'},
+                {'data': 'hospital'},
+                {'data': 'nursery'},
+                {'data': 'park'},
+                {'data': 'petrol_station'},
+                {'data': 'police_station'},
+                {'data': 'restaurant'},
+                {'data': 'school'},
+                {'data': 'super_market'},
+                {'data': 'floor_area'},
+                {'data': 'site_area'},
+                {'data': 'kitchen'},
+                {'data': 'living_room'},
+                {'data': 'bedroom1'},
+                {'data': 'bedroom2'},
+                {'data': 'bedroom3'},
+                {'data': 'airport'},
+                {'data': 'bus_stop'},
+                {'data': 'train_station'},
+                
+                {'data': 'underground_station', orderable:true},
+                {
+                    'data': null,
+                    'render': function(data, type, row) {
+                        var editUrl = row.property_id ? '/admin/database_edit/' + row.property_id + '/' : '#';
+                        return '<a href="'+ editUrl +'" class="btn btn-sm btn-success edit-btn">Edit</a>';
+                    },orderable:false,serachable:false
+                },
+                {
+                    'data': null,
+                    'render': function(data, type, row) {
+                        return '<a href="' + row.link + '" target="_blank" class="btn btn-success">View</a>';
+                    },orderable:false,serachable:false
+                },
+             
+      
+            ],
+            'createdRow': function (row, data, dataIndex) {
+            
+            var expiredDateIndex = 4; 
+
+           
+            if (new Date(data.expired_date) < new Date()) {
+                $('td', row).eq(expiredDateIndex).css('color', 'red');
+            }
+        },
+            "searching": true,
+            "serverSide": true,  
+            "paging": true,  
+            "lengthMenu": [10, 25, 50, 100],  
+            "pageLength": 10,  
+            "responsive": true,
+            "info": true,
+            "order": [[0, 'asc']],
+            "autoWidth": true,
+            "processing": true,
+            "scrollX": true,
+            "scrollY": 400,
+            "scrollCollapse": true,
+            "select": true
+            
+
+        });
+    });
+  
+</script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-6 h3 card-title">EDIT TOPICS</div>
+                        <div class="col-md-6" align="right">
+                            <button class="btn btn-sm btn-warning">
+                                <a href="{% url 'registeredUser' %}" class="text-white"><i class="mdi mdi-arrow-left-circle mr-2"></i>BACK</a>
+                            </button>
+                        </div>
+                    </div>
+                    <form class="editindexform" action="{% url 'update_user' edit.id %}" method="POST" enctype="multipart/form-data">
+                        {% if context.success %}
+                        <ul class="messages alert alert-success">
+                            <li>{{ context.success }}</li>
+                        </ul>
+                        {% endif %}
+                        
+                        {% if context.error %}
+                        <ul class="messages alert alert-danger">
+                            <li>{{ context.error }}</li>
+                        </ul>
+                        {% endif %}
+                        
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">First Name</label>
+                                    <input type="text" class="form-control" id="name" name="first_name" placeholder="enter name" value="{{ edit.first_name }}"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">  
+                                <div class="form-group">
+                                    <label for="active">Status </label>
+                                    <select name="is_active" class="form-control" id="active">
+                                        {% if edit.is_active == 1 %}
+                                        <option value="1" selected>Active</option>
+                                        <option value="0">Inactive</option>
+                                        {% else %}
+                                        <option value="1" >Active</option>
+                                        <option value="0" selected>Inactive</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="image">Last Name</label>
+                                    <input type="text" name="last_name" class="form-control" id="image" value="{{ edit.last_name }}" />
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="mdi mdi mdi-near-me mr-2"></i>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="/static/admin/assets/scripts/index.js"></script>
+{% endblock %}

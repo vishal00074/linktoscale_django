@@ -1,0 +1,977 @@
+<!doctype html>
+<html>
+
+<head>
+    {% include 'layouts/head.html' %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+.toggle-next {
+border-radius: 0;}
+label{cursor: pointer;}
+.ellipsis{text-overflow: ellipsis;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;}
+.apply-selection {
+            display: none;
+            width: 100%;
+            margin: 0;
+            padding: 5px 10px;
+            border-bottom: 1px solid #ccc;
+        }
+.apply-selection .ajax-link {
+            display: none;
+        }
+.checkboxes {
+            margin: 0;
+            display: none;
+            border: 1px solid #ccc;
+            border-top: 0;
+        }
+.checkboxes .inner-wrap {
+            padding: 5px 10px;
+            max-height: 140px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body class="link-scale">
+    <div class="overlay"></div>
+    <!--header area start-->
+    <header>
+        <div class="humburg">
+            <i class="fas fa-bars" id="sidebar_btn"></i> <span>Upload</span>
+        </div>
+        <div class="left_area">
+            <a href="{% url '' %}"><img src="/static/images/link_mainlogo.png" /></a>
+           <!--<h6 style="color: red;align-items: right;font-weight: bold;" align="right">Beta</h6>-->
+</div>
+
+    </header>
+    <!--header area end-->
+
+    <!--sidebar start-->
+    <div class="sidebar">
+        {% include 'layouts/sidebar.html' %}
+    </div>
+    <!--sidebar end-->
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="upload_form mt-5">
+                    <div class="row m-0">
+                        <div class="col-sm-12">
+                            <h4 class="head mb-0">About the listing</h4>
+                        </div>
+                    </div>
+
+                    <form id="myForm" action="/Addproperty/" method="post" enctype="multipart/form-data">
+                        {% if messages %}
+                        {% for msg in messages %}
+                        <p>{{msg}}</p>
+                        {% endfor %}
+                        {% endif %}
+                        {% csrf_token %}
+
+                        <div id="clone-section" class="container">
+                            <div id="top-form" class="upload_form pb-0">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <select id="language" name="index" required>
+                                            <option value="">Select Topic*</option>
+                                            <option value="1">Property</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <select id="language" name="category" required>
+                                            <option value="">Select Category*</option>
+                                            <option value="1">Residential</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <input type="text" placeholder="http://www. *" id="weburl" name="weburl" required>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="text" id="autocomplete"
+                                            placeholder="Enter postcode Or full address *" name="address" required>
+                                    </div>
+
+                                    <div class="row m-0">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-6 p-0">
+                                                    <label class="st-label">Country*</label>
+                                                </div>
+                                                <div class="col-sm-6 p-0 bb">
+                                                    <input type="text" name='country' placeholder="-" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-6 p-0">
+                                                    <label class="st-label">Continent*</label>
+                                                </div>
+                                                <div class="col-sm-6 p-0 bb">
+                                                    <input type="text" name='continent' placeholder="-" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!---->
+                                <div class="row m-0">
+                                    <div class="col-sm-6">
+                                        <!--<div class="row">
+                                        <div class="col-sm-6 p-0">
+                                            <label class="st-label">Title</label>
+                                        </div>
+                                        <div class="col-sm-6 p-0 bb">
+                                            <input type="text" name='title' placeholder="title" >
+                                        </div>
+                                    </div> -->
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <select id="Status" name="purchase_type" required>
+                                                    <option value="">Status*</option>
+                                                    <option value="1">Buy</option>
+                                                    <option value="0">Rent</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 p-0 c-prize bb">
+                                                <span class="currency">£</span>
+                                                <input id="amount" name="amount" type="number" maxlength="15"
+                                                    placeholder="-" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <label class="st-label">Image*</label>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb file">
+                                                <input type="file" name='image' required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---->
+                                <div class="row m-0">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <select id="floor_area2" name="floor_area" required>
+                                                    <!-- <option value="">Floor Area (m²)</option> -->
+                                                    <option value="Floor Area (m²)">Floor Area (m²)</option>
+                                                    <option value="Floor Area (ft²)">Floor Area (ft²)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="number" placeholder="-" name="floor_area_value" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <select id="floor_area1" name='site_area' required>
+                                                    <!-- <option value="">Site Area (m²)</option> -->
+                                                    <option value="Site Area (m²)"> Site Area (m²)</option>
+                                                    <option value="Site Area (ft²)">Site Area (ft²)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="number" placeholder="-" name="site_area_value" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="feature-down multi-drop property_type">
+                                            <a class="form-control toggle-next ellipsis">Type*</a>
+                                            <div class="checkboxes" id="Categories">
+                                                <div class="mutliSelect">
+                                                    <ul>
+                                                        <li>
+                                                            <label>
+                                                                <input type="checkbox" value="Duplex"
+                                                                    name="property_type" class="ckkBox val" />
+                                                                <span>Duplex</span>
+                                                            </label>
+                                                        </li>
+
+                                                        <li> <label>
+                                                                <input type="checkbox" value="Garden"
+                                                                    name="property_type" class="ckkBox val" />
+                                                                <span>Garden</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Highrise"
+                                                                    name="property_type" class="ckkBox val" />
+                                                                <span>Highrise</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="House"
+                                                                    name="property_type" class="ckkBox val" />
+                                                                <span>House</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Lowrise"
+                                                                    name="property_type" class="ckkBox val" />
+                                                                <span>Lowrise</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Joint"
+                                                                    name="property_type" class="ckkBox val" />
+                                                                <span>Joint</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Luxury Highrise"
+                                                                    name="property_type" class="ckkBox val" />
+                                                                <span>Luxury Highrise</span>
+                                                            </label></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row m-0">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <label class="st-label">No. of Bedrooms*</label>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="text" name='Bedroom' placeholder="-" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <label class="st-label">No. of Bathroom*</label>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="text" name='bathroom' placeholder="-"  required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="feature-down multi-drop">
+                                            <a class="form-control toggle-next ellipsis">Features*</a>
+                                            <div class="checkboxes">
+                                                <div class="mutliSelect">
+                                                    <ul>
+                                                        <li>
+                                                            <label>
+                                                                <input type="checkbox" value="Living Room"
+                                                                    name="features" class="ckkBox val" />
+                                                                <span>Living Room</span>
+                                                            </label>
+                                                        </li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Studio" name="features"
+                                                                    class="ckkBox val" />
+                                                                <span>Studio</span>
+                                                            </label></li>
+
+                                                        <li> <label>
+                                                                <input type="checkbox" value="Kitchen" name="features"
+                                                                    class="ckkBox val" />
+                                                                <span>Kitchen</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Garage" name="features"
+                                                                    class="ckkBox val" />
+                                                                <span>Garage</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Garden" name="features"
+                                                                    class="ckkBox val" />
+                                                                <span>Garden</span>
+                                                            </label></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <div class="feature-down multi-drop amenties">
+                                            <a class="form-control toggle-next ellipsis">Amenities*</a>
+                                            <div class="checkboxes" id="Categories">
+                                                <div class="mutliSelect">
+                                                    <ul>
+                                                        <li>
+                                                            <label>
+                                                                <input type="checkbox" value="Parking facilities"
+                                                                    name="amenties" class="ckkBox val" />
+                                                                <span>Parking facilities</span>
+                                                            </label>
+                                                        </li>
+
+
+
+                                                        <li> <label>
+                                                                <input type="checkbox" value="Playground"
+                                                                    name="amenties" class="ckkBox val" />
+                                                                <span>Playground</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Swimming pool"
+                                                                    name="amenties" class="ckkBox val" />
+                                                                <span>Swimming pool</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Laundry facilities"
+                                                                    name="amenties" class="ckkBox val" />
+                                                                <span>Laundry facilities</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Outdoor spaces"
+                                                                    name="amenties" class="ckkBox val" />
+                                                                <span>Outdoor spaces</span>
+                                                            </label></li>
+
+                                                        <li><label>
+                                                                <input type="checkbox" value="Gym" name="amenties"
+                                                                    class="ckkBox val" />
+                                                                <span>Gym</span>
+                                                            </label></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <select id="duration" name="duration" required>
+                                            <option value="">Ad Duration*</option>
+                                            <option value="1 day"> 1 day</option>
+                                            <option value="7 days"> 7 days</option>
+                                            <option value="30 days">30 days</option>
+                                            <option value="6 months">6 months</option>
+                                            <option value="1 year"> 1 year</option>
+                                            <option value="ongoing">ongoing</option>
+                                            <option value="custom">Custom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="inputContainer"></div>
+
+                            </div>
+                        </div>
+
+                        <div id="additionalListings"></div>
+
+
+                        <div class="row listing my-4 m-0">
+                            <div class="col-sm-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="hide"
+                                        id="flexSwitchCheckDefault">
+                                    <label class="form-check-label ms-3" for="flexSwitchCheckDefault">HIDE PROPERTY
+                                        NUMBER</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 nw-list">
+
+                                <a onclick="addNewListing()">New Listing</a>
+
+                            </div>
+                        </div>
+
+                        <div class="row m-0">
+                            <div class="col-sm-12">
+                                <br><br>
+                                <h4 class="head">About you</h4>
+                            </div>
+                        </div>
+
+                        <div class="row abt m-0">
+                            <div class="col-sm-12">
+                                <input type="text" id="name" placeholder="Your Name*" name="name">
+                                <input type="text" id="company_name" placeholder="Company Name" name="company_name">
+                                <input type="tel" id="phone" name="phone" placeholder="Contact Number ">
+                                <input type="email" id="email" placeholder="Email Address*" name="email">
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="btn-footer text-right">
+                                    <button class="save" type="submit">Send</button>
+                                    <button class="cancel" type="button">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?AIzaSyBSUanq_89GlAZnxfTkQMgGyW-uQUS_P7I&libraries=places"></script>
+
+
+
+    <script>
+        var input = document.getElementById('autocomplete');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    </script>
+
+
+    <script>
+        var dropdown = document.getElementById('duration');
+        var container = document.getElementById('inputContainer');
+        dropdown.addEventListener('change', function () {
+            var selectedOption = dropdown.value;
+            container.innerHTML = '';
+            if (selectedOption === 'custom') {
+                var inputField1 = document.createElement('input');
+                inputField1.type = 'text';
+                inputField1.name = 'duration';
+                inputField1.placeholder = 'Enter duration...(in days....)'; // Add a placeholder
+                container.appendChild(inputField1);
+            }
+        });
+    </script>
+
+
+    <script>
+        let listingCounter = 2; // Counter for new listings
+
+        function addNewListing() {
+            const additionalListingsDiv = document.getElementById("additionalListings");
+
+            const newListing = document.createElement("div");
+            newListing.innerHTML = `
+	  <div class="row m-0">
+     <div class="col-sm-12"><br><br> <h4 class="head mb-0">Listing ${listingCounter}</h4></div></div>
+	
+      <div id="clone-section${listingCounter} clone-section" class="container">
+                            <div id="top-form" class="upload_form pb-0">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <select id="language" name="index">
+                                            <option value="">Select Topic*</option>
+                                            <option value="1">Property</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <select id="language" name="category">
+                                            <option value="">Select Category*</option>
+                                            <option value="1">Residential</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <input type="text" placeholder="http://www. *" id="weburl" name="weburl">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="text" id="autocomplete" placeholder="Enter postcode Or full address *" name="address" class="pac-target-input" autocomplete="off">
+                                    </div>
+
+                                    <div class="row m-0">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-6 p-0">
+                                                    <label class="st-label">Country*</label>
+                                                </div>
+                                                <div class="col-sm-6 p-0 bb">
+                                                    <input type="text" name="country" placeholder="-">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-6 p-0">
+                                                    <label class="st-label">Continent*</label>
+                                                </div>
+                                                <div class="col-sm-6 p-0 bb">
+                                                    <input type="text" name="continent" placeholder="-">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!---->
+                                <div class="row m-0">
+                                    <div class="col-sm-6">
+                                        <!--<div class="row">
+                                        <div class="col-sm-6 p-0">
+                                            <label class="st-label">Title</label>
+                                        </div>
+                                        <div class="col-sm-6 p-0 bb">
+                                            <input type="text" name='title' placeholder="title" >
+                                        </div>
+                                    </div> -->
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <select id="Status" name="purchase_type">
+                                                    <option value="">Status*</option>
+                                                    <option value="1">Buy</option>
+                                                    <option value="0">Rent</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 p-0 c-prize bb">
+                                                <span class="currency">£</span>
+                                                <input id="amount" name="amount" type="text" maxlength="15" placeholder="-">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <label class="st-label">Image*</label>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb file">
+                                                <input type="file" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---->
+                                <div class="row m-0">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <select id="floor_area1" name="site_area">
+                                                    <!-- <option value="">Site Area (m²)</option> -->
+                                                    <option value="Site Area (m²)"> Site Area (m²)</option>
+                                                    <option value="Site Area (ft²)">Site Area (ft²)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="text" placeholder="-" name="site_area_value">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <select id="floor_area2" name="floor_area">
+                                                    <!-- <option value="">Floor Area (m²)</option> -->
+                                                    <option value="Floor Area (m²)">Floor Area (m²)</option>
+                                                    <option value="Floor Area (ft²)">Floor Area (ft²)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="text" placeholder="-" name="floor_area_value">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="feature-down multi-drop property_type">
+      <a class="form-control toggle-next ellipsis">Type*</a>
+ <div class="checkboxes" id="Categories">
+        <div class="mutliSelect">
+		<ul><li>
+ <label>
+            <input type="checkbox" value="Duplex" class="ckkBox val" />
+            <span>Duplex</span>
+          </label></li>
+
+        <li> <label>
+            <input type="checkbox" value="Garden" class="ckkBox val" />
+            <span>Garden</span>
+          </label></li>
+          
+          <li><label>
+            <input type="checkbox" value="Highrise" class="ckkBox val" />
+            <span>Highrise</span>
+          </label></li>
+
+          <li><label>
+            <input type="checkbox" value="House" class="ckkBox val" />
+            <span>House</span>
+          </label></li>
+		  
+		  <li><label>
+            <input type="checkbox" value="Lowrise" class="ckkBox val" />
+            <span>Lowrise</span>
+          </label></li>
+		  
+		  <li><label>
+            <input type="checkbox" value="Joint" class="ckkBox val" />
+            <span>Joint</span>
+          </label></li>
+		  
+		  <li><label>
+            <input type="checkbox" value="Luxury Highrise" class="ckkBox val" />
+            <span>Luxury Highrise</span>
+          </label></li></ul></div></div>
+    </div>
+</div>
+</div>
+
+
+
+                                <div class="row m-0">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <label class="st-label">No. of Bedrooms*</label>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="text" name="Bedroom" placeholder="-">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 p-0">
+                                                <label class="st-label">No. of Bathroom*</label>
+                                            </div>
+                                            <div class="col-sm-6 p-0 bb">
+                                                <input type="text" name="bathroom" placeholder="-">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="feature-down multi-drop">
+      <a class="form-control toggle-next ellipsis">Features*</a>
+ <div class="checkboxes" id="Categories">
+        <div class="mutliSelect">
+		<ul><li>
+ <label>
+            <input type="checkbox" value="Living Room" class="ckkBox val" />
+            <span>Living Room</span>
+          </label></li>
+
+          <li><label>
+            <input type="checkbox" value="Studio" class="ckkBox val"  />
+            <span>Studio</span>
+          </label></li>
+
+         <li> <label>
+            <input type="checkbox" value="Kitchen" class="ckkBox val" />
+            <span>Kitchen</span>
+          </label></li>
+          
+          <li><label>
+            <input type="checkbox" value="Garage" class="ckkBox val" />
+            <span>Garage</span>
+          </label></li>
+
+          <li><label>
+            <input type="checkbox" value="Garden" class="ckkBox val" />
+            <span>Garden</span>
+          </label></li></ul></div></div>
+    </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="feature-down multi-drop amenties">
+      <a class="form-control toggle-next ellipsis">Amenities*</a>
+ <div class="checkboxes" id="Categories">
+        <div class="mutliSelect">
+		<ul><li>
+ <label>
+            <input type="checkbox" value="Parking facilities" class="ckkBox val" />
+            <span>Parking facilities</span>
+          </label></li>
+
+         
+
+         <li> <label>
+            <input type="checkbox" value="Playground" class="ckkBox val" />
+            <span>Playground</span>
+          </label></li>
+          
+          <li><label>
+            <input type="checkbox" value="Swimming pool" class="ckkBox val" />
+            <span>Swimming pool</span>
+          </label></li>
+
+          <li><label>
+            <input type="checkbox" value="Laundry facilities" class="ckkBox val" />
+            <span>Laundry facilities</span>
+          </label></li>
+		  
+		  <li><label>
+            <input type="checkbox" value="Outdoor spaces" class="ckkBox val" />
+            <span>Outdoor spaces</span>
+          </label></li>
+		  
+		  <li><label>
+            <input type="checkbox" value="Gym" class="ckkBox val" />
+            <span>Gym</span>
+          </label></li></ul></div></div>
+    </div>
+	
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <select id="duration" name="duration">
+                                            <option value="">Ad Duration*</option>
+                                            <option value="1 day"> 1 day</option>
+                                            <option value="7 days"> 7 days</option>
+                                            <option value="30 days">30 days</option>
+                                            <option value="6 months">6 months</option>
+                                            <option value="1 year"> 1 year</option>
+                                            <option value="ongoing">ongoing</option>
+                                            <option value="custom">Custom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="inputContainer"></div>
+
+                            </div>
+                        </div>
+      `;
+
+            additionalListingsDiv.appendChild(newListing);
+            listingCounter++;
+
+        }
+
+        document.getElementById("clone-section").addEventListener("submit", function (event) {
+            //   event.preventDefault(); // Prevent form submission for this example
+
+            // Collect all form data
+            const formData = new FormData(this);
+            for (const entry of formData.entries()) {
+                console.log(entry[0] + ": " + entry[1]);
+            }
+        });
+    </script>
+
+    <script>
+        function changeColor(e) {
+            var color = e.value;
+            e.style.color = color;
+        }
+    </script>
+    <script>
+        document.querySelector('.cancel').addEventListener('click', function () {
+            document.querySelectorAll('input').forEach(function (input) {
+                input.value = ''; // Clear the value of each input element
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+
+            setCheckboxSelectLabels();
+
+            $('.toggle-next').click(function () {
+                $(this).next('.checkboxes').slideToggle(400);
+            });
+
+            $('.ckkBox').change(function () {
+                toggleCheckedAll(this);
+                setCheckboxSelectLabels();
+            });
+
+        });
+
+        function setCheckboxSelectLabels(elem) {
+            var wrappers = $('.feature-down');
+            $.each(wrappers, function (key, wrapper) {
+                var checkboxes = $(wrapper).find('.ckkBox');
+                var label = $(wrapper).find('.checkboxes').attr('id');
+                var prevText = '';
+                $.each(checkboxes, function (i, checkbox) {
+                    var button = $(wrapper).find('.toggle-next');
+                    if ($(checkbox).prop('checked') == true) {
+                        var text = $(checkbox).next().html();
+                        var btnText = prevText + text;
+                        var numberOfChecked = $(wrapper).find('input.val:checkbox:checked').length;
+                        if (numberOfChecked >= 6) {
+                            btnText = numberOfChecked + ' ' + label + ' selected';
+                        }
+                        $(button).text(btnText);
+                        prevText = btnText + ', ';
+                    }
+                });
+            });
+        }
+
+        function toggleCheckedAll(checkbox) {
+            var apply = $(checkbox).closest('.wrapper').find('.apply-selection');
+            apply.fadeIn('slow');
+
+            var val = $(checkbox).closest('.checkboxes').find('.val');
+            var all = $(checkbox).closest('.checkboxes').find('.all');
+            var ckkBox = $(checkbox).closest('.checkboxes').find('.ckkBox');
+
+            if (!$(ckkBox).is(':checked')) {
+                $(all).prop('checked', true);
+                return;
+            }
+
+            if ($(checkbox).hasClass('all')) {
+                $(val).prop('checked', false);
+            } else {
+                $(all).prop('checked', false);
+            }
+        }
+    </script>
+	
+	
+    <!-- <script>
+        $(".feature-down dt a").on('click', function () {
+            $(".feature-down dd ul").slideToggle('fast');
+        });
+
+        $(".feature-down dd ul li a").on('click', function () {
+            $(".feature-down dd ul").hide();
+        });
+
+        function getSelectedValue(id) {
+            return $("#" + id).find("dt a span.value").html();
+        }
+
+        $(document).bind('click', function (e) {
+            var $clicked = $(e.target);
+            if (!$clicked.parents().hasClass("feature-down")) $(".feature-down dd ul").hide();
+        });
+
+        $('.mutliSelect input[type="checkbox"]').on('click', function () {
+
+            var title = $(this).closest('.mutliSelect').find('input[type="checkbox"]').val(),
+                title = $(this).val() + ",";
+
+            if ($(this).is(':checked')) {
+                var html = '<span title="' + title + '">' + title + '</span>';
+                $('.multiSel').append(html);
+                $(".feature-down .hida").hide();
+            } else {
+                $('span[title="' + title + '"]').remove();
+                var ret = $(".feature-down .hida");
+                $('.feature-down dt a').append(ret);
+
+            }
+        });
+
+
+        $(".amenties dt a").on('click', function () {
+            $(".amenties dd ul").slideToggle('fast');
+        });
+
+        $(".amenties dd ul li a").on('click', function () {
+            $(".amenties dd ul").hide();
+        });
+
+        function getSelectedValue(id) {
+            return $("#" + id).find("dt a span.value").html();
+        }
+
+        $(document).bind('click', function (e) {
+            var $clicked = $(e.target);
+            if (!$clicked.parents().hasClass("amenties")) $(".amenties dd ul").hide();
+        });
+
+        $('.mutliSelectt input[type="checkbox"]').on('click', function () {
+
+            var title = $(this).closest('.mutliSelectt').find('input[type="checkbox"]').val(),
+                title = $(this).val() + ",";
+
+            if ($(this).is(':checked')) {
+                var html = '<span title="' + title + '">' + title + '</span>';
+                $('.multiSell').append(html);
+                $(".amenties .hida").hide();
+            } else {
+                $('span[title="' + title + '"]').remove();
+                var ret = $(".amenties .hida");
+                $('.amenties dt a').append(ret);
+
+            }
+        });
+
+
+
+
+        $(".property_type dt a").on('click', function () {
+            $(".property_type dd ul").slideToggle('fast');
+        });
+
+        $(".property_type dd ul li a").on('click', function () {
+            $(".property_type dd ul").hide();
+        });
+
+        function getSelectedValue(id) {
+            return $("#" + id).find("dt a span.value").html();
+        }
+
+        $(document).bind('click', function (e) {
+            var $clicked = $(e.target);
+            if (!$clicked.parents().hasClass("property_type")) $(".property_type dd ul").hide();
+        });
+
+        $('.mutliSelectt2 input[type="checkbox"]').on('click', function () {
+
+            var title = $(this).closest('.mutliSelectt2').find('input[type="checkbox"]').val(),
+                title = $(this).val() + ",";
+
+            if ($(this).is(':checked')) {
+                var html = '<span title="' + title + '">' + title + '</span>';
+                $('.multiSell2').append(html);
+                $(".property_type .hida").hide();
+            } else {
+                $('span[title="' + title + '"]').remove();
+                var ret = $(".property_type .hida");
+                $('.property_type dt a').append(ret);
+
+            }
+        });
+
+
+    </script>-->
+</body>
+
+</html>

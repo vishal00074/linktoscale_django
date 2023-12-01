@@ -1,0 +1,259 @@
+{% extends 'admin/AdminDashboard.html' %}
+
+{% block content %}
+
+<div class="content-wrapper pb-0">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card ">
+                <div class="card-body property-inform">
+                    <div class="h3">Property Information</div>
+
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Title:</th>
+                            <td>{{ properties_data.title }}</td>
+                        </tr>
+
+
+                        <tr>
+                            <th>Status:</th>
+                            {% if properties_data.purchase_type != '0' %}
+                            <td>Sale</td>
+                            {% else %}
+                            <td>Rent</td>
+                            {% endif %}
+                        </tr>
+
+
+                        <tr>
+                            <th>Floor Area:</th>
+                            <td>{{ properties_data.floor_area }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Floor area Value:</th>
+                            <td>{{ properties_data.floor_area_value }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Site Area:</th>
+                            <td>{{ properties_data.site_area }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Site Area value:</th>
+                            <td>{{ properties_data.site_area_value }}</td>
+                        </tr>
+
+
+                        <tr>
+                            <th>Type:</th>
+                            <td>{{ properties_data.property_type }}</td>
+                        </tr>
+
+
+                        <tr>
+                            <th>No. of Bedroom:</th>
+                            <td>{{ properties_data.Bedroom }}</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <th>No. of Bathroom:</th>
+                            <td>{{ properties_data.bathroom }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Country:</th>
+                            <td>{{ properties_data.Country}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Continent:</th>
+                            <td>{{ properties_data.Continent}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Features:</th>
+                            <td>{{ properties_data.features }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Amenities:</th>
+                            <td>{{ properties_data.amenties }}</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <th>Duration</th>
+                            <td>{{ properties_data.duration }}</td>
+                        </tr>
+
+
+
+
+                        <tr>
+                            <th>Website link</th>
+                            <td><a href="{{ properties_data.weburl }}" target="_blank" class="btn btn-primary">View</a>
+                            </td>
+                        </tr>
+
+
+                        <!-- <tr>
+    <th>Status</th>
+    <td>
+        <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" name="button_action" value="{{ button_value }}">{{ button_text }}</button>
+          </form>
+    </td>
+</tr -->
+                        {% if is_superuser %}
+                        <tr>
+                            <th>Status</th>
+                            <td>
+                                <div>
+                                    {% if properties_data.is_admin == '0' %}
+                                    <a href="{% url 'approve' properties_data.id %}"
+                                        class="btn btn-danger">Disapproved</a>
+                                    {% elif properties_data.is_admin == '1' %}
+                                    <a href="{% url 'unapprove' properties_data.id %}"
+                                        class="btn btn-success">Approved</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <th>Property Image</th>
+                            <td><img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ properties_data.image }}"
+                                    height="100px" width="100px" />
+                            </td>
+                        </tr>
+
+
+
+
+                    </table>
+
+
+                    <!--
+<div>
+    <label>Title:</label>
+    <span>{{ properties.title }}</span>
+</div>
+<div>
+    <label>Status:</label>
+    <span>{{ properties.purchase_type }}</span>
+</div>
+<div>
+    <label>Floor Area:</label>
+    <span>{{ properties.floor_area }}</span>
+</div>
+<div>
+    <label>Floor area square feet:</label>
+    <span></span>
+</div>
+<div>
+    <label>Type:</label>
+    <span>{{ properties.property_type }}</span>
+</div>
+<div>
+    <label>No. of Bedroom:</label>
+    <span>{{ properties.Bedroom  }}</span>
+</div>
+<div>
+    <label>No. of Bathroom:</label>
+    <span>{{ properties.bathroom }}</span>
+</div>
+<div>
+    <label>Features:</label>
+    <span>{{ properties.features }}</span>
+</div>
+<div>
+    <label>Amenities:</label>
+    <span>{{ properties.amenties }}</span>
+</div>
+<div>
+    <label>Duration</label>
+    <span>{{ properties.duration }}</span>
+</div>
+<div>
+    <label>Website link</label>
+    <span><a href="{{ properties.weburl }}" >Link</a></span>
+</div>
+<div>
+    <label> Property Image</label>
+    <span><img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ properties.image }}"
+        height="100px" width="100px" /></span>
+</div>-->
+                    <br><br>
+
+
+                    <div class="h3">User Information</div>
+
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ users_data.name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ users_data.email }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Company Name</th>
+                            <td>{{ users_data.company_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ users_data.phone }}</td>
+                        </tr>
+
+                    </table>
+
+
+
+                    <!--
+<div>
+    <label>Name:</label>
+    <span>{{ users.name }}</span>
+</div>
+<div>
+    <label>Email:</label>
+    <span>{{ users.email }}</span>
+</div>
+<div>
+    <label>Company Name:</label>
+    <span>{{ users.company_name }}</span>
+</div>
+<div>
+    <label>Phone:</label>
+    <span>{{ users.phone }}</span>
+</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+</div>
+{% endblock %}
+
+{% block script %}
+
+
+<script src="/static/admin/assets/scripts/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    var csrfToken = "{{ csrf_token }}";
+</script>
+
+{% endblock %}
